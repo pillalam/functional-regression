@@ -1,8 +1,8 @@
 {
-    "AlsApps.access_apps": [
+    "CfAppAccess.access_apps": [
         {
             "args": {
-                "urls_path": "/home/cloudosqa/rally_properties/als/apps_url_list.csv"
+                "urls_path": "/home/hcf/rally/samples/tasks/scenarios/cf/csv_files/apps_url_list.csv"
             },
             "runner": {
                 "type": "constant_for_duration",
