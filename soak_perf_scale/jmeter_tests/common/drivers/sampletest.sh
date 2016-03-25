@@ -1,0 +1,1 @@
+/jmeter -n -t $WORKDIR/soak_perf_sacle/jmeter_tests/sample/samplelogintest.jmx -p $WORKDIR/soak_perf_scale/jmeter_tests/common/properties/sample_common.properties -l /home/veera/j  $WORKDIR/sampletestlogin.jtl
