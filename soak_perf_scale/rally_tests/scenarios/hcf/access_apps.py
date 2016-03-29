@@ -1,19 +1,16 @@
 import csv
-import random
-import time
 from rally.plugins.openstack import scenario
-from rally.plugins.openstack.scenarios.cf import utils
+from rally.plugins.openstack.scenarios.hcf import utils
 import logging
 
 
 class CfAppAccess(utils.CfScenario):
     """Basic benchmark scenarios """
 
-    @scenario.configure(context={"cleanup": ["als"]})
+    @scenario.configure()
     def access_apps(self, urls_path):
         """
-           This method tests the usage of deployed apps from app_urls.csv,
-           which are populated by deploy app method.
+           This method tests the usage of deployed apps from apps_url_list.csv,
            param urls_path: path for csv file with app's to be used
         """
 
@@ -23,4 +20,3 @@ class CfAppAccess(utils.CfScenario):
                     self._use_app(row[0])
                 except Exception:
                     logging.error('Url %s didnt return 200', row[0])
-
