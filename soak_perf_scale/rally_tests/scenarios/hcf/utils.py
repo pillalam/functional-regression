@@ -13,17 +13,14 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-import time
 import requests
 import testtools
-from rally.common import logging as logging
 from rally.task import atomic
-from rally.task import utils as bench_utils
 from rally.plugins.openstack import scenario
 
 
 class CfScenario(scenario.OpenStackScenario, testtools.TestCase):
-    @atomic.action_timer("als.app_url")
+    @atomic.action_timer("cf.app_url_access_time")
     def _use_app(self, app_url):
         """
         :param app_url: App to use
