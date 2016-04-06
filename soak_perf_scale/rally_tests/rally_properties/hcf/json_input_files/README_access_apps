@@ -1,0 +1,10 @@
+HCF cluster - Application access Soak Test 
+------------------------------------------
+1) Create a HCF cluster and deploy the following applications.
+    -- sample helion-hello-world-java 
+
+2) Add the application URL in spreadsheet
+
+3) Update environment variables in Jenkins for job HCF_Soak_Access_Application
+
+4) Run the job in Jenkins and check the Result.
