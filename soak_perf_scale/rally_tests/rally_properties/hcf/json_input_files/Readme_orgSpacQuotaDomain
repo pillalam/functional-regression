@@ -10,21 +10,4 @@ Steps to run HCF Soak Test scenario (create,list and delete - org, space, quota 
 		   ~/cnap-qa/soak_perf_scale/rally_tests/rally_properties/hcf/json_input_files/create_delete_space.json
                    ~/cnap-qa/soak_perf_scale/rally_tests/rally_properties/hcf/json_input_files/create_delete_domain.json
          
-3) HCF soak tests and utils details as follows:
-   	Location: ~/cnap-qa/soak_perf_scale/rally_tests/scenarios/hcf/test_org_soak.py
-		  ~/cnap-qa/soak_perf_scale/rally_tests/scenarios/hcf/test_quota_soak.py
-                  ~/cnap-qa/soak_perf_scale/rally_tests/scenarios/hcf/test_space_soak.py
-                  ~/cnap-qa/soak_perf_scale/rally_tests/scenarios/hcf/test_domain_soak.py
-                  ~/cnap-qa/soak_perf_scale/rally_tests/scenarios/hcf/utils.py
-
-4) Context file for create and delete org:
-	Location: cnap-qa/soak_perf_scale/rally_tests/scenarios/hcf/orgs.py
-
-
-4) Create Deployment using the environment details file (environment_details_hcftests.json)
-         Command: rally deployment create --filename="environment_details_hcftests.json" --name="hcftests"
-
-5) Execute tests from the path where json files reside:
-         Command: rally task start create_list_delete_org.json
-
-6) check the soak test results from results
+3) Run as Jenkins job and view the test results
