@@ -1,0 +1,1 @@
+{"admin": {"username": "username", "tenant_name": "tenantname", "password": "password"}, "auth_url": "https://example.net:5000/v2.0", "type": "ExistingCloud", "https_cacert": "None", "https_insecure": true} 
