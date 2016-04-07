@@ -1,0 +1,23 @@
+{
+    "HcfSoakTests.create_delete_domain": [
+        {
+            "args": {
+                "cluster_url": "https://api.10.241.238.76.xip.io",
+                "username": "hdpqa@hp.com",
+                "password": "Test1234"
+            },
+            "runner": {
+                "type": "constant",
+                "concurrency": 1,
+                "times": 1
+            },
+            "context": {
+                "orgs": {
+                    "cluster_url": "https://api.10.241.238.76.xip.io",
+                    "username": "hdpqa@hp.com",
+                    "password": "Test1234"
+                }
+            }
+        }
+    ]
+}
