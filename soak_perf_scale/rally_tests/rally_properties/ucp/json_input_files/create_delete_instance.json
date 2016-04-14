@@ -1,0 +1,16 @@
+{
+    "UcpInstanceTests.create_delete_instance": [
+        {
+            "args": {
+                "target_url": "http://192.168.200.3:30000"
+            },
+            "runner": {
+                "type": "constant_for_duration",
+                "concurrency": 5,
+                "duration": 28800
+            },
+            "context": {
+            }
+        }
+    ]
+}
