@@ -1,5 +1,5 @@
 {
-    "CfAppAccess.access_apps": [
+    "HcfAppAccess.access_apps": [
         {
             "args": {
                 "urls_path": "${WORKDIR}/soak_perf_scale/rally_tests/rally_properties/hcf/csv_files/apps_url_list.csv"

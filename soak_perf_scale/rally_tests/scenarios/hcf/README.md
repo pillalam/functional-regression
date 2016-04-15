@@ -11,24 +11,6 @@ This Readme file contains the steps to execute HCF Rally Tests
     * APP_URLS  (If more than one URL, use \n as separator. Eg http://url1/nhttp://url2)
 3. Run the Jenkins job and check the result.
 
-## Test Domain
-
-1. Update following variables in HCF_Soak_Domain Jenkins Job
-    * HLM_BASENODE_IP (Base node IP, which has rc file)
-    * CLUSTER_URL 
-    * USER_NAME 
-    * PASSWORD
-2. Run the Jenkins job and check the result.
-
-## Test Organization
-
-1. Update following variables in HCF_Soak_Organisation Jenkins Job
-    * HLM_BASENODE_IP (Base node IP, which has rc file)
-    * CLUSTER_URL 
-    * USER_NAME 
-    * PASSWORD
-2. Run the Jenkins job and check the result.
-
 ## Test Quota
 
 1. Update following variables in HCF_Soak_Quota Jenkins Job
@@ -38,7 +20,7 @@ This Readme file contains the steps to execute HCF Rally Tests
     * PASSWORD
 2. Run the Jenkins job and check the result.
 
-## Test Space
+## Test Organisation and Space
 
 1. Update following variables in HCF_Soak_Space Jenkins Job
     * HLM_BASENODE_IP (Base node IP, which has rc file)

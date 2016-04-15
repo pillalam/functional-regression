@@ -1,5 +1,5 @@
 {
-    "HcfSoakTests.create_delete_org": [
+    "HcfSoakTests.create_delete_org_and_space": [
         {
             "args": {
                 "cluster_url": "https://api.10.241.238.76.xip.io",
@@ -7,9 +7,9 @@
                 "password": "Test1234"
             },
             "runner": {
-                "type": "constant",
-                "concurrency": 1,
-                "times": 1
+                "type": "constant_for_duration",
+                "concurrency": 5,
+                "duration": 28800
             },
             "context": {
             }

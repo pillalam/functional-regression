@@ -1,22 +1,23 @@
 from rally.plugins.openstack import scenario
 from rally.plugins.openstack.scenarios.hcf import utils
-from rally.task import validation
 
 
 class HcfSoakTests(utils.HcfScenario):
     """Basic benchmark scenarios for Cloud Foundry."""
 
-    @validation.required_contexts("orgs")
-    @scenario.configure(context={"cleanup": ["orgs"]})
-    def create_delete_space(self, cluster_url, username, password):
+    @scenario.configure()
+    def create_delete_org_and_space(self, cluster_url, username, password):
         """
            This method tests the new space creation,list and delete.
            param : cluster_url, username and password
         """
-        org_name = self.context["tenant"]["org_name"]
-        # Create space
+        # Target to api and login to cluster url
+        self._connectApi_and_loginToTarget(cluster_url, username, password)
+        # Create org and space
+        org_name = self._create_org() 
         space_name = self._create_space(org_name)
-        # Delete space
+        # Delete org and space
         self._delete_space(space_name)
+        self._delete_org(org_name)
         # Logout from cluster
         self._logoutFromTarget()
