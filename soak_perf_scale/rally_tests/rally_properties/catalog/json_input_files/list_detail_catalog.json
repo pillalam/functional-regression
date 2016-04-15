@@ -1,0 +1,16 @@
+{
+    "CatalogSoakTests.list_detail_catalog": [
+        {
+            "args": {
+                "catalog_name": "hpe-catalog"
+            },
+            "runner": {
+                "type": "constant",
+                "concurrency": 1,
+                "times": 1
+            },
+            "context": {
+            }
+        }
+    ]
+}
