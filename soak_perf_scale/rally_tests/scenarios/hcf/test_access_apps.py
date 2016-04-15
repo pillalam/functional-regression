@@ -4,7 +4,7 @@ from rally.plugins.openstack.scenarios.hcf import utils
 import logging
 
 
-class CfAppAccess(utils.CfScenario):
+class HcfAppAccess(utils.HcfScenario):
     """Basic benchmark scenarios """
 
     @scenario.configure()

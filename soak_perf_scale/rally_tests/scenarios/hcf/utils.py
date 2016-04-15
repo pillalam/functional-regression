@@ -26,7 +26,7 @@ import logging
 
 
 class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
-    @atomic.action_timer("cf.app_url_access_time")
+    @atomic.action_timer("hcf.app_url_access_time")
     def _use_app(self, app_url):
         """
         :param app_url: App to use
@@ -45,6 +45,7 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         org_name = 'og_test_org' + str(random.randint(1024, 4096))
         orgCreateCommand = "cf" + " create-org " + org_name
         status, output = self.executeShellCommand(orgCreateCommand)
+        self.assertEqual(0, status)
         logging.info("Org created successfully")
         self.assertIn(org_name, output)
         return org_name
@@ -66,6 +67,7 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         logging.info("Delete organisation")
         orgDeleteCommand = "cf" + " delete-org " + org_name + " -f"
         status, output = self.executeShellCommand(orgDeleteCommand)
+        self.assertEqual(0, status)
         logging.info("Org deleted successfully")
         output = self._wait_for_org_delete(org_name, timeout=300,
                                            check_interval=4)
@@ -84,8 +86,8 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
                 return orgs_list
             elif time.time() - start_time > timeout:
                 print "Delete org timed out"
+                break
             time.sleep(check_interval)
-            start_time += int(1)
 
     @atomic.action_timer("hcf.create_space")
     def _create_space(self, org_name):
@@ -100,6 +102,7 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         spaceCreateCommand = "cf" + " create-space " + space_name + \
             " -o " + org_name
         status, output = self.executeShellCommand(spaceCreateCommand)
+        self.assertEqual(0, status)
         logging.info("Space created successfully")
         self.assertIn(space_name, output)
         return space_name
@@ -121,10 +124,27 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         logging.info("Delete space")
         spaceDeleteCommand = "cf" + " delete-space " + space_name + " -f"
         status, output = self.executeShellCommand(spaceDeleteCommand)
+        self.assertEqual(0, status)
         logging.info("Space deleted successfully")
-        space_list = self._list_space()
-        self.assertNotIn(space_name, space_list)
-        return status, output
+        output = self._wait_for_space_delete(space_name, timeout=300,
+                                           check_interval=4)
+        self.assertNotIn(space_name, output)
+
+    def _wait_for_space_delete(self, space_name, timeout=300,
+                             check_interval=1):
+        """Waits for specified Space to be deleted.
+        :param space_name: space name
+        """
+        start_time = time.time()
+        while True:
+            space_list = self._list_space()
+            if space_name not in space_list:
+                print "Space deleted successfully"
+                return space_list
+            elif time.time() - start_time > timeout:
+                print "Delete space timed out"
+                break
+            time.sleep(check_interval)
 
     @atomic.action_timer("hcf.create_quota")
     def _create_quota(self):
@@ -141,6 +161,7 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
             " -i " + max_mem + " -m " + total_mem + " -r " + total_routes + \
             " -s " + total_service_inst + " --allow-paid-service-plans"
         status, output = self.executeShellCommand(quotaCreateCommand)
+        self.assertEqual(0, status)
         logging.info("Quota Plan created successfully")
         self.assertIn(quota_name, output)
         return quota_name
@@ -162,51 +183,26 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         logging.info("Delete quota")
         quotaDeleteCommand = "cf" + " delete-quota " + quota_name + " -f"
         status, output = self.executeShellCommand(quotaDeleteCommand)
-        logging.info("Quota deleted successfully")
-        quota_list = self._list_quota()
-        self.assertNotIn(quota_name, quota_list)
-        return status, output
+        output = self._wait_for_quota_delete(quota_name, timeout=300,
+                                           check_interval=4)
+        self.assertNotIn(quota_name, output)
+        self.assertEqual(0, status)
 
-    @atomic.action_timer("hcf.create_domain")
-    def _create_domain(self, org_name):
+    def _wait_for_quota_delete(self, quota_name, timeout=300,
+                             check_interval=1):
+        """Waits for specified Quota to be deleted.
+        :param quota_name: quota name
         """
-        :param org_name: org name
-        :returns: created domain
-        """
-        targetOrgCommand = "cf" + " target -o " + org_name
-        self.executeShellCommand(targetOrgCommand)
-        logging.info("Create new domain")
-        domain_name = 'www' + '.' + 'dtestdomain' + \
-            str(random.randint(1024, 4096)) + '.' + 'com'
-        domainCreateCommand = "cf" + " create-domain " + org_name + \
-            str(" ") + domain_name
-        status, output = self.executeShellCommand(domainCreateCommand)
-        logging.info("Domain created successfully")
-        self.assertIn(domain_name, output)
-        return domain_name
-
-    def _list_domain(self):
-        """
-        :returns: list of domains
-        """
-        logging.info("Lists domains")
-        domainListCommand = "cf" + " domains "
-        status, output = self.executeShellCommand(domainListCommand)
-        return output
-
-    @atomic.action_timer("hcf.delete_domain")
-    def _delete_domain(self, domain_name):
-        """
-        :param domain_name: domain name
-        """
-        logging.info("Delete domain")
-        domainDeleteCommand = "cf" + " delete-domain " + \
-            domain_name + " -f"
-        status, output = self.executeShellCommand(domainDeleteCommand)
-        logging.info("Domain deleted successfully")
-        domain_list = self._list_domain()
-        self.assertNotIn(domain_name, domain_list)
-        return status, output
+        start_time = time.time()
+        while True:
+            quota_list = self._list_quota()
+            if quota_name not in quota_list:
+                print "Quota plan deleted successfully"
+                return quota_list
+            elif time.time() - start_time > timeout:
+                print "Delete quota timed out"
+                break
+            time.sleep(check_interval)
 
     def executeShellCommand(self, strCommand):
         print "str Command for execute shell"
@@ -226,6 +222,7 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         strConnectApiCommand = "cf" + " api --skip-ssl-validation " \
             + cluster_url
         status, output = self.executeShellCommand(strConnectApiCommand)
+        self.assertEqual(0, status)
         logging.info("Connected to target")
         return status, output
 
@@ -243,6 +240,7 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         strLogin = "no" + " | " + strLoginCommand
         status, output = self.executeShellCommand(strLogin)
         time.sleep(60)
+        self.assertEqual(0, status)
         logging.info("Logged into target")
         return status, output
 
@@ -250,5 +248,7 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         logging.info("Logging out from target")
         strLogoutCommand = "cf" + " logout"
         status, output = self.executeShellCommand(strLogoutCommand)
+        self.assertEqual(0, status)
         logging.info("Logged out from target")
         return status, output
+
