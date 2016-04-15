@@ -1,1 +1,1 @@
-# Branch for HDP3.0 Release - Cloud Native Application Platform
+# Branch for CNAP1.0 Release - Cloud Native Application Platform
