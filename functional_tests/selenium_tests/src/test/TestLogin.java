@@ -30,7 +30,7 @@ public class TestLogin {
         //driver = new FirefoxDriver();
     	
     	//uncomment below lines if you want to execute tests on chrome driver browser
-    	System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
+    	System.setProperty("webdriver.chrome.driver", "chromedriver");
     	driver = new ChromeDriver();
     	
     	//uncomment below line if you want to execute tests on HtmlUnitDriver browser
