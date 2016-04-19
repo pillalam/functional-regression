@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class Login_Page {
+public class LoginPage {
 	
 	
 	final WebDriver driver;
@@ -21,7 +21,7 @@ public class Login_Page {
  
 	// This is a constructor, as every page need a base driver to find web elements
  
-	public Login_Page(WebDriver driver)
+	public LoginPage(WebDriver driver)
  
 	{
  
