@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class Dashboard_Page {
+public class DashboardPage {
 
 	  final WebDriver driver;
 	
@@ -15,7 +15,7 @@ public class Dashboard_Page {
 	  @FindBy(how = How.XPATH, using = ".//*[@id='editor_list']/li[4]/a")
 	  public WebElement logoutlink;
 	  
-	  public Dashboard_Page(WebDriver driver)
+	  public DashboardPage(WebDriver driver)
 	  {
 		  this.driver = driver;
 	  }

@@ -5,7 +5,7 @@
 	<parameter name="password" value="JesVmelMGSqg"/>
 	<parameter name="url" value="http://10.241.127.17/"/>
 		<classes>
-			<class name="tests.Test_Login" />
+			<class name="tests.TestLogin" />
 		</classes>
 	</test>
 </suite>

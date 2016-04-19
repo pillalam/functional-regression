@@ -9,14 +9,14 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.Dashboard_Page;
-import pages.Login_Page;
+import pages.DashboardPage;
+import pages.LoginPage;
 
-public class Test_Login {
+public class TestLogin {
 
 	static WebDriver driver;
-	Dashboard_Page dashboard_Page;
-	Login_Page login_Page;
+	DashboardPage dashboardPage;
+	LoginPage loginPage;
 	
 	    @BeforeTest
 	    public void setup(){
@@ -26,11 +26,11 @@ public class Test_Login {
 	        //driver = new FirefoxDriver();
 	    	
 	    	//uncomment below lines if you want to execute tests on chrome driver browser
-	    	System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
+	    	System.setProperty("webdriver.chrome.driver", "chromedriver");
 	    	driver = new ChromeDriver();
 	    	
-	    	login_Page = PageFactory.initElements(driver, Login_Page.class);
-	    	dashboard_Page = PageFactory.initElements(driver, Dashboard_Page.class);
+	    	loginPage = PageFactory.initElements(driver, LoginPage.class);
+	    	dashboardPage = PageFactory.initElements(driver, DashboardPage.class);
 	    	
 	    	//uncomment below line if you want to execute tests on HtmlUnitDriver browser
 	    	//driver = new HtmlUnitDriver(true);
@@ -52,12 +52,12 @@ public class Test_Login {
 	    	
 	    	driver.get(url);
   	
-	    	login_Page.userName.sendKeys(username);
-	    	login_Page.password.sendKeys(password);
-	    	login_Page.login.click();
+	    	loginPage.userName.sendKeys(username);
+	    	loginPage.password.sendKeys(password);
+	    	loginPage.login.click();
 	    	
-	    	dashboard_Page.profileEditor.click();
-	    	dashboard_Page.logoutlink.click();
+	    	dashboardPage.profileEditor.click();
+	    	dashboardPage.logoutlink.click();
 	    	
 
 	    }
