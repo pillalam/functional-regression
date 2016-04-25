@@ -25,4 +25,5 @@ Eg: docker run -p 80:80 -p 3306:3306 hdpqa/wordpress_app
 ```
 
 Now from browser, access the application with the url as 'http://<machine-ip>:80'
-http://52.37.2.240/wordpress/testsite/?p=5&preview=true
+The current working deployment is :
+http://52.26.116.213/    (login details:admin/test123)
