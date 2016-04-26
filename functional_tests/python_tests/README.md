@@ -1,6 +1,5 @@
-# HCF Functional Tests - Steps to Run the Tests 
+# Helion Cloud Foundry Functional Tests - Steps to Run the Tests 
 
-This Readme file contains the steps to run hcf functional tests.
 ## Test Organisation
 1. Update run.conf file in python_tests/config folder with following details:
      * url=<target-cluster-url>

@@ -3,12 +3,11 @@ import os
 import re
 import ConfigParser
 
-
 class BaseTest(unittest.TestCase):
 
     BASE_PATH = os.getcwd().split()[0]
     CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
-        BASE_PATH + '/config/run.conf'))
+        BASE_PATH + '/config/hcf.conf'))
     Config = ConfigParser.ConfigParser()
     Config.read(CONF_FILE)
     CONF_SECTION_CONN = 'cluster-details'

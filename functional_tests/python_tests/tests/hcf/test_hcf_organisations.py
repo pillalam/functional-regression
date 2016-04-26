@@ -3,9 +3,8 @@ import sys
 import re
 import base
 import random
-from utils.hcf import hcf_auth
-from utils.hcf import organisations
-
+from utils import hcf_auth
+from utils import hcf_organisations
 
 class TestHcfOrganisations(base.BaseTest):
 
@@ -33,16 +32,16 @@ class TestHcfOrganisations(base.BaseTest):
     def test_hcf_create_list_delete_org(self):
         # Create Organisation
         org_name = 'og_test_org' + str(random.randint(1024, 4096))
-        out, err = organisations.create_org(org_name)
+        out, err = hcf_organisations.create_org(org_name)
         self.verify(org_name, out)
         self.verify("OK", out)
 
         # List Organisation
-        out, err = organisations.list_orgs()
+        out, err = hcf_organisations.list_orgs()
         self.verify(org_name, out)
 
         # Delete Organisation
-        out, err = organisations.delete_org(
+        out, err = hcf_organisations.delete_org(
             org_name, input_data=b'yes\n')
         self.verify("OK", out)
 

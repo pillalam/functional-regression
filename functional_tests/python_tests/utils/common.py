@@ -6,7 +6,7 @@ import time
 
 BASE_PATH = os.getcwd().split()[0]
 CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
-    BASE_PATH + '/config/run.conf'))
+    BASE_PATH + '/config/hcf.conf'))
 CONF_SECTION_CONN = 'command'
 Config = ConfigParser.ConfigParser()
 Config.read(CONF_FILE)
