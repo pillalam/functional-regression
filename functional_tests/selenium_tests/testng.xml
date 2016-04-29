@@ -1,8 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Selenium Console Tests">
+<suite name="Login Logout Test Suite">
   <test name="Console Test">
     <classes>
       <class name="com.helion.selenium.StratosConsole.GoogleHomePageTest"/>
     </classes>
+  </test>
+  <test name="Login Test">
+	<parameter name="username" value="dev"/>
+	<parameter name="password" value="dev"/>
+	<parameter name="url" value="http://192.168.91.131/"/>
+		<classes>
+			<class name="test.java.com.helion.selenium.StratosConsole.TestLogin" />
+		</classes>
   </test>
 </suite>
