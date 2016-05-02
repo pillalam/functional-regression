@@ -14,7 +14,7 @@ class HcfSoakTests(utils.HcfScenario):
         # Target to api and login to cluster url
         self._connectApi_and_loginToTarget(cluster_url, username, password)
         # Create org and space
-        org_name = self._create_org() 
+        org_name = self._create_org()
         space_name = self._create_space(org_name)
         # Delete org and space
         self._delete_space(space_name)

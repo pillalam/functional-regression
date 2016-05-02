@@ -3,6 +3,7 @@ import os
 import re
 import ConfigParser
 
+
 class BaseTest(unittest.TestCase):
 
     BASE_PATH = os.getcwd().split()[0]
