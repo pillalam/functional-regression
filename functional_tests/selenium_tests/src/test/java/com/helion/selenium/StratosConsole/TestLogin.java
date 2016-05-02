@@ -3,6 +3,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 //import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -16,7 +17,6 @@ public class TestLogin {
 	
 	    @BeforeTest
 	    public void setup(){
-	    	
 
 	    	//uncomment below line if you want to execute tests on firefox browser
 	        //driver = new FirefoxDriver();
@@ -42,14 +42,17 @@ public class TestLogin {
 	    public void test_Login_Logout(String username, String password, String url){
 	    	
 	    	driver.get(url);
-  	
-	    	LoginPage.userName(driver).sendKeys(username);
-	    	LoginPage.password(driver).sendKeys(password);
-	    	LoginPage.login(driver).click();
-	    	
-	    	GalleryviewPage.userSettings(driver).click();
-	    	GalleryviewPage.signOut(driver).click();
-
+	     	Assert.assertEquals("",driver.getTitle());
+	    	if(LoginPage.login(driver).isDisplayed())
+	    	{
+	    		LoginPage.userName(driver).sendKeys(username);
+	    		LoginPage.password(driver).sendKeys(password);
+	    		LoginPage.login(driver).click();
+	    	}
+	    	if(GalleryviewPage.userSettings(driver).isDisplayed())
+	        {
+	    		GalleryviewPage.userSettings(driver).click();
+	    		GalleryviewPage.signOut(driver).click();
+	        }
 	    }
-	 
 }
