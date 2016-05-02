@@ -40,7 +40,12 @@ class TestHcfQuotas(base.BaseTest):
 
         # List Quotas
         out, err = hcf_quotas.list_quotas()
-        self.verify(quota_name, out)
+        expected_list = ["name", "total memory limit", "instance memory limit",
+                         " routes", "service instances", "paid service plans",
+                         "app instance limit"]
+        for key in expected_list:
+            self.verify(key, out)
+        self.verify("OK", out)
 
         # Create Org
         org_name = 'og_test_org' + str(random.randint(1024, 4096))
@@ -52,11 +57,57 @@ class TestHcfQuotas(base.BaseTest):
         out, err = hcf_quotas.set_quota(org_name, quota_name)
         self.verify("OK", out)
 
+        # Set Target to Org
+        out, err = hcf_quotas.set_target(optional_args={'-o': org_name})
+
+        # create space-quota
+        space_quota_name = 'sp_quota_test' + str(random.randint(1024, 4096))
+        out, err = hcf_quotas.create_space_quota(space_quota_name)
+        self.verify(space_quota_name, out)
+        self.verify("OK", out)
+
+        # create space
+        space_name = 'sp_test' + str(random.randint(1024, 4096))
+        out, err = hcf_space.create_space(space_name)
+        self.verify(space_name, out)
+        self.verify("OK", out)
+
+        # set space-quota to space
+        out, err = hcf_quotas.set_space_quota(space_name, space_quota_name)
+        self.verify("Assigning space quota", out)
+        self.verify("OK", out)
+
+        # list space-quotas
+        out, err = hcf_quotas.list_space_quotas()
+        expected_list = ["name", "total memory limit", "instance memory limit",
+                         " routes", "service instances", "paid service plans",
+                         "app instance limit"]
+        for key in expected_list:
+            self.verify(key, out)
+        self.verify("Getting space quotas", out)
+        self.verify("OK", out)
+
+        # unset space-quota
+        out, err = hcf_quotas.unset_space_quota(space_name, space_quota_name)
+        self.verify("Unassigning space quota", out)
+        self.verify("OK", out)
+
+        # delete space-quota
+        out, err = hcf_quotas.delete_space_quota(
+            space_quota_name, input_data=b'yes\n')
+        self.verify("OK", out)
+
+        # delete space
+        out, err = hcf_space.delete_space(
+            space_name, input_data=b'yes\n')
+        self.verify("OK", out)
+
         # Delete Org
         out, err = hcf_organisations.delete_org(
             org_name, input_data=b'yes\n')
+        self.verify("OK", out)
 
-        # Delete Quotas
+        # Delete Quota
         out, err = hcf_quotas.delete_quota(
             quota_name, input_data=b'yes\n')
         self.verify("OK", out)
