@@ -9,14 +9,14 @@ public class GalleryviewPage {
 		 
 	    public static WebElement userSettings(WebDriver driver){
 	 
-	         element = driver.findElement(By.cssSelector(".btn-border-less.helion-icon.helion-icon-User_settings"));
+	         element = driver.findElement(By.xpath(".//*[@id='navbar']/icons/avatar/i"));
 	 
 	         return element;
 	 
 	         }
 	    public static WebElement signOut(WebDriver driver){
 	   	 
-	         element = driver.findElement(By.cssSelector(".helion-icon.helion-icon-Logout"));
+	         element = driver.findElement(By.xpath(".//*[@id='navbar']/icons/avatar/div/div[2]/account-actions/div/div[2]/span[3]/a/i"));
 	 
 	         return element;
 	 

@@ -23,7 +23,7 @@ public class LoginPage {
         }
     public static WebElement login(WebDriver driver){
     	 
-        element = driver.findElement(By.cssSelector(".btn.btn-commit.center-block"));
+        element = driver.findElement(By.xpath(".//*[@id='section-login-panel']/login-form/form/button"));
 
         return element;
 
