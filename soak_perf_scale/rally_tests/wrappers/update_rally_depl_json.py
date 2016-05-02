@@ -27,7 +27,8 @@ https_insecure = json.loads(https_insecure)
 https_cacert = os.getenv('RALLY_HTTPS_CACERT', "None")
 timeout = os.getenv('RALLY_TIMEOUT', 300)
 
-users_default_val = '[{"username": "%s", "password": "%s", "tenant_name": "%s"}]'\
+users_default_val = '[{"username": "%s"\
+, "password": "%s", "tenant_name": "%s"}]'\
                     % (username, password, tenant_name)
 users = os.getenv('RALLY_USERS', users_default_val)
 users = json.loads(users)

@@ -42,7 +42,7 @@ class UcpScenario(scenario.OpenStackScenario, testtools.TestCase):
         :returns: created instance
         """
         logging.info("Creating new instance")
-        instance_id = "ucpcluster" + str(random.randint(1024, 4096)
+        instance_id = "ucpcluster" + str(random.randint(1024, 4096))
         jsonFileName = self._create_instance_json(instance_id)
         instCreateCommand = "hdpctl" + " create-instance -d " + jsonFileName
         status, output = self.executeShellCommand(instCreateCommand)

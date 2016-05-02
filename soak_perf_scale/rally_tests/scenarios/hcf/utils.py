@@ -127,11 +127,11 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         self.assertEqual(0, status)
         logging.info("Space deleted successfully")
         output = self._wait_for_space_delete(space_name, timeout=300,
-                                           check_interval=4)
+                                             check_interval=4)
         self.assertNotIn(space_name, output)
 
     def _wait_for_space_delete(self, space_name, timeout=300,
-                             check_interval=1):
+                               check_interval=1):
         """Waits for specified Space to be deleted.
         :param space_name: space name
         """
@@ -184,12 +184,12 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         quotaDeleteCommand = "cf" + " delete-quota " + quota_name + " -f"
         status, output = self.executeShellCommand(quotaDeleteCommand)
         output = self._wait_for_quota_delete(quota_name, timeout=300,
-                                           check_interval=4)
+                                             check_interval=4)
         self.assertNotIn(quota_name, output)
         self.assertEqual(0, status)
 
     def _wait_for_quota_delete(self, quota_name, timeout=300,
-                             check_interval=1):
+                               check_interval=1):
         """Waits for specified Quota to be deleted.
         :param quota_name: quota name
         """
@@ -251,4 +251,3 @@ class HcfScenario(scenario.OpenStackScenario, testtools.TestCase):
         self.assertEqual(0, status)
         logging.info("Logged out from target")
         return status, output
-
