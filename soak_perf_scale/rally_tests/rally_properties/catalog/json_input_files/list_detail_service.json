@@ -1,0 +1,16 @@
+{
+    "CatalogServiceSoakTests.list_detail_service": [
+        {
+            "args": {
+                "service_name": "hpe-catalog:mysql"
+            },
+            "runner": {
+                "type": "constant",
+                "concurrency": 1,
+                "times": 1
+            },
+            "context": {
+            }
+        }
+    ]
+}
