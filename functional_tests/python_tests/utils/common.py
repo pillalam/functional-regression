@@ -3,6 +3,8 @@ import re
 import os
 import ConfigParser
 import time
+import httplib2
+import json
 
 BASE_PATH = os.getcwd().split()[0]
 CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
@@ -49,3 +51,10 @@ def executeShellCommand(strCommand, input_arg=None):
     else:
         print out
     return out, err
+
+
+def send_request(req_url, method, body=None, headers=None):
+    req = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+    response, content = req.request(
+        req_url, method=method, body=body, headers=headers)
+    return response, json.loads(content)
