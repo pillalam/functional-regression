@@ -25,9 +25,9 @@ class TestHcfMarketplace(base.BaseTest):
         # Connect to the cluster URI target
         hcf_auth.connect_target(cls.cluster_url,
                                 optional_args={'--skip-ssl-validation': ' '})
-        # Loginto Cluster using creds
+        # Log into Cluster using creds
         hcf_auth.login(optional_args={'-u': cls.username, '-p': cls.password})
-        # Create Organisation
+        # Create organisation
         cls.setup_org = 'og_test_org' + str(random.randint(1024, 4096))
         out, err = hcf_organisations.create_org(cls.setup_org)
         out, err = hcf_auth.target(optional_args={'-o': cls.setup_org})
