@@ -19,7 +19,7 @@ class TestCatalogService(base.BaseTest):
         super(TestCatalogService, cls).tearDownClass()
         pass
 
-    def test_catalog_service(self):
+    def test_cat_service_list(self):
         # Lists all catalog services
         response, content = catalog_service.list_service(self.catalog_host)
         self.assertEqual("hpe-catalog", content[0]['catalogId'])
