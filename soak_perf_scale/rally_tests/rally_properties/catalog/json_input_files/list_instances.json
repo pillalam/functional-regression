@@ -1,0 +1,13 @@
+{
+    "CatalogInstanceSoakTests.list_instances": [
+        {
+            "runner": {
+                "type": "constant",
+                "concurrency": 1,
+                "times": 1
+            },
+            "context": {
+            }
+        }
+    ]
+}

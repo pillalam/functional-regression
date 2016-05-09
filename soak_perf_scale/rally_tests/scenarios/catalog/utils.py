@@ -47,6 +47,38 @@ class CatalogScenario(scenario.OpenStackScenario, testtools.TestCase):
         self.assertEqual(status, 0)
         self.assertIn(catalog_name, output)
 
+    @atomic.action_timer("catalog.list_services")
+    def _list_services(self, service_name):
+        """
+        :returns: list of services
+        """
+        logging.info("List services")
+        ServiceListCommand = "catalog" + " services "
+        status, output = self.executeShellCommand(ServiceListCommand)
+        self.assertEqual(status, 0)
+        self.assertIn(service_name, output)
+
+    @atomic.action_timer("catalog.details_service")
+    def _details_service(self, service_name):
+        """
+        :returns: service details
+        """
+        logging.info("detail service")
+        ServiceDetailsCommand = "catalog" + " service " + service_name
+        status, output = self.executeShellCommand(ServiceDetailsCommand)
+        self.assertEqual(status, 0)
+        self.assertIn(service_name, output)
+
+    @atomic.action_timer("catalog.list_instances")
+    def _list_instances(self):
+        """
+        :returns: list of instances
+        """
+        logging.info("List instances")
+        InstanceListCommand = "catalog" + " instances "
+        status, output = self.executeShellCommand(InstanceListCommand)
+        self.assertEqual(status, 0)
+
     def executeShellCommand(self, strCommand):
         status, output = commands.getstatusoutput(strCommand)
         return status, output
