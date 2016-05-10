@@ -28,4 +28,11 @@ public class LoginPage {
         return element;
 
         } 
+    
+    public static void loginToConsole(WebDriver driver, String name, String pwd)
+    {
+    	userName(driver).sendKeys(name);
+    	password(driver).sendKeys(pwd);
+    	login(driver).click();
+    }
 }
