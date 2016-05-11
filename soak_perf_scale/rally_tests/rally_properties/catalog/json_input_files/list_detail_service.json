@@ -1,5 +1,5 @@
 {
-    "CatalogServiceSoakTests.list_detail_service": [
+    "CatalogSoakTests.list_detail_service": [
         {
             "args": {
                 "service_name": "hpe-catalog:mysql"

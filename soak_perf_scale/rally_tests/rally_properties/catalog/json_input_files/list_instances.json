@@ -1,5 +1,5 @@
 {
-    "CatalogInstanceSoakTests.list_instances": [
+    "CatalogSoakTests.list_instances": [
         {
             "runner": {
                 "type": "constant",
