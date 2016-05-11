@@ -14,3 +14,21 @@ class CatalogSoakTests(utils.CatalogScenario):
         self._list_catalog(catalog_name)
         #  detail catalog
         self._details_catalog(catalog_name)
+
+    @scenario.configure()
+    def list_detail_service(self, service_name):
+        """
+           This tests the list and details service functionality.
+        """
+        # list services
+        self._list_services(service_name)
+        # detail service
+        self._details_service(service_name)
+
+    @scenario.configure()
+    def list_instances(self):
+        """
+           This method tests list instances functionality.
+        """
+        # list instances
+        self._list_instances()
