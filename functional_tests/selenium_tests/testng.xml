@@ -1,18 +1,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Login Logout Test Suite">
 	<parameter name="url" value="http://192.168.91.131/"/>
-        <test name="Console Test">
-             <classes>
-                     <class name="com.helion.selenium.StratosConsole.GoogleHomePageTest"/>
-             </classes>
-        </test>
 	<test name="Stratos Login Test">
-	<parameter name="nonadminuser" value="dev"/>
-	<parameter name="nonadminpwd" value="dev"/>
-	<parameter name="adminuser" value="admin"/>
-	<parameter name="adminpwd" value="admin"/>
+	    <parameter name="nonadminuser" value="dev"/>
+	    <parameter name="nonadminpwd" value="dev"/>
+	    <parameter name="adminuser" value="admin"/>
+	    <parameter name="adminpwd" value="admin"/>
 	     <classes>
-	   	     <class name="com.helion.selenium.StratosConsole.TestConsoleLogin" />
+	         <class name="com.helion.selenium.StratosConsole.TestConsoleLogin" />
 	     </classes>
 	</test>
 </suite>
