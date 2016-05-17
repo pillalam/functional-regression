@@ -58,6 +58,7 @@
            <configuration>
                 <suiteXmlFiles>
 	       	   <!-- TestNG suite XML files -->
+                   <suiteXmlFile>testng_trial.xml</suiteXmlFile>
 		   <suiteXmlFile>testng.xml</suiteXmlFile>
                 </suiteXmlFiles>
            </configuration>
