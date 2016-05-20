@@ -32,3 +32,15 @@ class CatalogSoakTests(utils.CatalogScenario):
         """
         # list instances
         self._list_instances()
+
+    @scenario.configure()
+    def create_delete_mysql_instance(self, service_Id, instanceFile):
+        """
+           This method tests create and delete functionality for
+           mysql service instance
+        """
+        #  Create Mysql instance
+        instance_Id = self.create_mysql_instance(service_Id, instanceFile)
+
+        #  Delete Mysql instance
+        self._delete_mysql_instance(instance_Id)
