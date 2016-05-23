@@ -1,0 +1,2 @@
+{"description":"Apache Spark Cluster","instance_id":"spar-id","labels":["bigdata","spark","apache"],
+"parameters":[{"name":"SPARK_WORKER_PORT","value":"8888"}],"service_id":"hpe-catalog:spark","version":"0"}
