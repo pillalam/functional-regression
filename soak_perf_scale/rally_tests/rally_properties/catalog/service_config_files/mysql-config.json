@@ -1,0 +1,7 @@
+{"description":"MySQL Database Server",
+"instance_id":"mysql",
+"labels":["database","mysql"],
+"parameters":[{"name":"MYSQL_ROOT_PASSWORD",
+"value":"root123"}],
+"service_id":"hpe-catalog:mysql",
+"version":"5.5"} 

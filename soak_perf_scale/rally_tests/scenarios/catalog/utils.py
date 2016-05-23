@@ -79,6 +79,27 @@ class CatalogScenario(scenario.OpenStackScenario, testtools.TestCase):
         status, output = self.executeShellCommand(InstanceListCommand)
         self.assertEqual(status, 0)
 
+    @atomic.action_timer("catalog.create_mysql_service_instance")
+    def _create_mysql_instance(self, service_Id, instancefile):
+        """
+        :returns: Mysql Service instance
+        """
+        logging.info("Create mysql instance")
+        InstanceCreateCommand = "catalog" + " create-instance  " + \
+            service_Id + "-i" + instancefile
+        status, output = self.executeShellCommand(InstanceCreateCommand)
+        self.assertEqual(status, 0)
+        instance_Id = output
+        return instance_Id
+
+    @atomic.action_timer("catalog.delete_mysql_service_instance")
+    def _delete_mysql_instance(self, instance_Id):
+        logging.info("Delete mysql instance")
+        InstanceDeleteCommand = "catalog" + "delete-instance " + \
+            "-f " + instance_Id
+        status, output = self.executeShellCommand(InstanceDeleteCommand)
+        self.assertEqual(status, 0)
+
     def executeShellCommand(self, strCommand):
         status, output = commands.getstatusoutput(strCommand)
         return status, output
