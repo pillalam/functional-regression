@@ -1,6 +1,7 @@
+import os
 import common
 import json
-
+import ast
 
 def list_instances(catalog_host):
     url = "v1/instances"
@@ -16,17 +17,21 @@ def show_instance(catalog_host, instance_id):
     return common.send_request(req_url, method='GET')
 
 
-def create_instance(catalog_host, instance_name, service_id, version):
+def create_instance(catalog_host, instance_id,
+                    service_id, labels, version, description, **kwargs):
+    parameters = []
+    data = {}
     request_data = {
-                       "name": instance_name,
-                       "description": instance_name + " server",
-                       "service_id": service_id,
-                       "version": version,
-                       "labels": ["mysql", "CF", "dev"],
-                       "parameters": [
-                           {"name": "MYSQL_ROOT_PASSWORD", "value": "root123"}
-                       ]
+                      "instance_id": instance_id,
+                      "description": description,
+                      "service_id": service_id,
+                      "version": version,
+                      "labels": labels
                    }
+    if kwargs.get('parameters'):
+        data = ast.literal_eval(kwargs.get('parameters'))
+        parameters.append(data)
+        request_data['parameters'] = parameters
     body = json.dumps(request_data)
     headers = {'Content-Type': 'application/json'}
     url = "v1/instances"
