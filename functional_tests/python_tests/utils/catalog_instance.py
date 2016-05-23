@@ -3,6 +3,7 @@ import common
 import json
 import ast
 
+
 def list_instances(catalog_host):
     url = "v1/instances"
     catalog_host = "http://" + catalog_host
