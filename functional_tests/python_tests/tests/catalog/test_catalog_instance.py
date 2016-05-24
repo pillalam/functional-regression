@@ -1,3 +1,4 @@
+import ast
 import base
 import random
 from utils import catalog_instance
@@ -27,11 +28,15 @@ class TestCatalogInstance(base.BaseTest):
             instance_details = instance_all_details[inst]
             kwargs = {}
             if 'kwargs' in instance_details:
-                kwargs['parameters'] = instance_details['kwargs']
+                if type('kwargs') == list:
+                    kwargs['parameters'] = instance_details['kwargs'][0]
+                else:
+                    kwargs['parameters'] = instance_details['kwargs']
                 # Create Catalog Instance
                 response, instance = catalog_instance.create_instance(
                     self.catalog_host, instance_details['instance_id'],
-                    instance_details['service_id'], instance_details['labels'],
+                    instance_details['service_id'],
+                    ast.literal_eval(instance_details['labels']),
                     instance_details['version'],
                     instance_details['description'], **kwargs)
 
@@ -39,18 +44,18 @@ class TestCatalogInstance(base.BaseTest):
                 response, list_instances = catalog_instance.list_instances(
                     self.catalog_host)
                 self.assertEqual(response['status'], '200')
-                self.assertIn(instance['instance_id'], list_instances)
+                self.assertIn(instance_details['instance_id'], list_instances)
 
                 # Verify details of a catalog instance
                 response, get_instance = catalog_instance.show_instance(
-                    self.catalog_host, instance_id)
+                    self.catalog_host, instance_details['instance_id'])
                 self.assertEqual(response['status'], '200')
                 self.assertEqual(get_instance['instance_id'],
                                  instance_details['instance_id'])
                 self.assertEqual(get_instance['service_id'],
                                  instance_details['service_id'])
                 self.assertEqual(get_instance['labels'],
-                                 instance_details['labels'])
+                                 ast.literal_eval(instance_details['labels']))
                 self.assertEqual(get_instance['version'],
                                  instance_details['version'])
                 self.assertEqual(get_instance['description'],
@@ -58,7 +63,7 @@ class TestCatalogInstance(base.BaseTest):
 
                 # Delete a catalog instance
                 response, _ = catalog_instance.delete_instance(
-                    self.catalog_host, instance['instance_id'])
+                    self.catalog_host, instance_details['instance_id'])
                 self.assertEqual(response['status'], '200')
 
 

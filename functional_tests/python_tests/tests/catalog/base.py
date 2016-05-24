@@ -9,7 +9,10 @@ class BaseTest(unittest.TestCase):
     @classmethod
     def get_instance_details(cls):
         service_details = ['redis-details', 'vertica-details',
-                           'spark-details', 'havenondemand-details']
+                           'spark-details', 'havenondemand-details',
+                           'mysql-details', 'mysqlcluster-details',
+                           'mongodb-details', 'cassandra-details',
+                           'elasticsearch-details']
         instance_all_details = {}
         for service in service_details:
             instance_params = cls.read_from_config(service)
