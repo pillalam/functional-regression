@@ -100,6 +100,48 @@ class CatalogScenario(scenario.OpenStackScenario, testtools.TestCase):
         status, output = self.executeShellCommand(InstanceDeleteCommand)
         self.assertEqual(status, 0)
 
+    @atomic.action_timer("catalog.create_spark_service_instance")
+    def _create_spark_instance(self, service_Id, instancefile):
+        """
+        :returns: Spark Service instance
+        """
+        logging.info("Create spark instance")
+        InstanceCreateCommand = "catalog" + " create-instance  " + \
+            service_Id + "-i" + instancefile
+        status, output = self.executeShellCommand(InstanceCreateCommand)
+        self.assertEqual(status, 0)
+        instance_Id = output
+        return instance_Id
+
+    @atomic.action_timer("catalog.delete_spark_service_instance")
+    def _delete_spark_instance(self, instance_Id):
+        logging.info("Delete spark instance")
+        InstanceDeleteCommand = "catalog" + "delete-instance " + \
+            "-f " + instance_Id
+        status, output = self.executeShellCommand(InstanceDeleteCommand)
+        self.assertEqual(status, 0)
+
+     @atomic.action_timer("catalog.create_cassandra_service_instance")
+    def _create_cassandra_instance(self, service_Id, instancefile):
+        """
+        :returns: Cassandra Service instance
+        """
+        logging.info("Create cassandra instance")
+        InstanceCreateCommand = "catalog" + " create-instance  " + \
+            service_Id + "-i" + instancefile
+        status, output = self.executeShellCommand(InstanceCreateCommand)
+        self.assertEqual(status, 0)
+        instance_Id = output
+        return instance_Id
+
+    @atomic.action_timer("catalog.delete_cassandra_service_instance")
+    def _delete_cassandra_instance(self, instance_Id):
+        logging.info("Delete cassandra instance")
+        InstanceDeleteCommand = "catalog" + "delete-instance " + \
+            "-f " + instance_Id
+        status, output = self.executeShellCommand(InstanceDeleteCommand)
+        self.assertEqual(status, 0)
+
     def executeShellCommand(self, strCommand):
         status, output = commands.getstatusoutput(strCommand)
         return status, output

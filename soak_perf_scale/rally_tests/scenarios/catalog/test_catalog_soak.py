@@ -44,3 +44,28 @@ class CatalogSoakTests(utils.CatalogScenario):
 
         #  Delete Mysql instance
         self._delete_mysql_instance(instance_Id)
+
+    @scenario.configure()
+    def create_delete_spark_instance(self, service_Id, instanceFile):
+        """
+           This method tests create and delete functionality for
+           spark service instance
+        """
+        #  Create Spark service instance
+        instance_Id = self.create_spark_instance(service_Id, instanceFile)
+
+        #  Delete Spark service instance
+        self._delete_spark_instance(instance_Id)
+
+    @scenario.configure()
+    def create_delete_cassandra_instance(self, service_Id, instanceFile):
+        """
+           This method tests create and delete functionality for
+           cassandra service instance
+        """
+        #  Create Cassandra service instance
+        instance_Id = self.create_cassandra_instance(service_Id, instanceFile)
+
+        #  Delete Cassandra service  instance
+        self._delete_cassandra_instance(instance_Id)
+
