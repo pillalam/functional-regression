@@ -69,3 +69,15 @@ class CatalogSoakTests(utils.CatalogScenario):
         #  Delete Cassandra service  instance
         self._delete_cassandra_instance(instance_Id)
 
+    @scenario.configure()
+    def create_delete_elasticsearch_instance(self, service_Id, instanceFile):
+        """
+           This method tests create and delete functionality for
+           elasticsearch service instance
+        """
+        #  Create Elasticsearch service instance
+        instance_Id = self.create_elasticsearch_instance(
+            service_Id, instanceFile)
+
+        #  Delete Elasticsearch service  instance
+        self._delete_elasticsearch_instance(instance_Id)
