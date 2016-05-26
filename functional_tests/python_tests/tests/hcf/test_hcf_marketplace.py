@@ -47,10 +47,9 @@ class TestHcfMarketplace(base.BaseTest):
         # List all offerings
         out, err = hcf_marketplace.marketplace()
         self.verify("OK", out)
-        expected_list = ["service", "plans", "description"]
-        for key in expected_list:
-            self.verify(key, out)
-
+        self.verify(
+            "Getting services from marketplace in org " + self.setup_org + ""
+            " / space " + self.setup_space, out)
 
 if __name__ == '__main__':
     base.unittest.main()
