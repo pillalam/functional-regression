@@ -1,0 +1,7 @@
+{
+    "instance_id": "mongo-id",
+    "description": "Mongo Database Instance",
+    "service_id": "hpe-catalog:mongo",
+    "version": "3.0",
+    "labels": ["database", "mongo"]
+}

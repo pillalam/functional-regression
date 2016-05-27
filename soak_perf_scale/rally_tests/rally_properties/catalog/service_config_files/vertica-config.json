@@ -1,0 +1,2 @@
+{"description":"A community edition of the vertica server. This service creates an initial database
+\"docker\" with username \"dbadmin\".","instance_id":"vertica-id","labels":["big data","database"],"service_id":"hpe-catalog:vertica","version":"0"}
