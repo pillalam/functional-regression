@@ -3,6 +3,7 @@ import sys
 import re
 import base
 import random
+
 from utils import hcf_auth
 from utils import hcf_organisations
 from utils import hcf_services
@@ -47,11 +48,10 @@ class TestHcfServices(base.BaseTest):
     def test_hcf_list_services(self):
         # List all services
         out, err = hcf_services.list_services()
+        self.verify("OK", out)
         self.verify(
             "Getting services in org " + self.setup_org + ""
-            " / space " + self.setup_space + " as hdpqa@hp.com...",
-            out)
-        self.verify("OK", out)
+            " / space " + self.setup_space, out)
 
 if __name__ == '__main__':
     base.unittest.main()

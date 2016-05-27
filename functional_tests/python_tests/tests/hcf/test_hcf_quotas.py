@@ -3,9 +3,11 @@ import sys
 import re
 import base
 import random
+
 from utils import hcf_auth
 from utils import hcf_quotas
 from utils import hcf_organisations
+from utils import hcf_space
 
 
 class TestHcfQuotas(base.BaseTest):
@@ -40,11 +42,7 @@ class TestHcfQuotas(base.BaseTest):
 
         # List Quotas
         out, err = hcf_quotas.list_quotas()
-        expected_list = ["name", "total memory limit", "instance memory limit",
-                         " routes", "service instances", "paid service plans",
-                         "app instance limit"]
-        for key in expected_list:
-            self.verify(key, out)
+        self.verify("Getting quotas", out)
         self.verify("OK", out)
 
         # Create Org
@@ -55,6 +53,7 @@ class TestHcfQuotas(base.BaseTest):
 
         # Set Quota to Org
         out, err = hcf_quotas.set_quota(org_name, quota_name)
+        self.verify("Setting quota " + quota_name + " to org " + org_name, out)
         self.verify("OK", out)
 
         # Set Target to Org
@@ -74,27 +73,23 @@ class TestHcfQuotas(base.BaseTest):
 
         # set space-quota to space
         out, err = hcf_quotas.set_space_quota(space_name, space_quota_name)
-        self.verify("Assigning space quota", out)
+        self.verify("Assigning space quota " + space_quota_name, out)
         self.verify("OK", out)
 
         # list space-quotas
         out, err = hcf_quotas.list_space_quotas()
-        expected_list = ["name", "total memory limit", "instance memory limit",
-                         " routes", "service instances", "paid service plans",
-                         "app instance limit"]
-        for key in expected_list:
-            self.verify(key, out)
         self.verify("Getting space quotas", out)
         self.verify("OK", out)
 
         # unset space-quota
         out, err = hcf_quotas.unset_space_quota(space_name, space_quota_name)
-        self.verify("Unassigning space quota", out)
+        self.verify("Unassigning space quota " + space_quota_name, out)
         self.verify("OK", out)
 
         # delete space-quota
         out, err = hcf_quotas.delete_space_quota(
             space_quota_name, input_data=b'yes\n')
+        self.verify("Deleting space quota " + space_quota_name, out)
         self.verify("OK", out)
 
         # delete space
@@ -110,8 +105,8 @@ class TestHcfQuotas(base.BaseTest):
         # Delete Quota
         out, err = hcf_quotas.delete_quota(
             quota_name, input_data=b'yes\n')
+        self.verify("Deleting quota", out)
         self.verify("OK", out)
-
 
 if __name__ == '__main__':
     base.unittest.main()
