@@ -142,12 +142,12 @@ class CatalogScenario(scenario.OpenStackScenario, testtools.TestCase):
         status, output = self.executeShellCommand(InstanceDeleteCommand)
         self.assertEqual(status, 0)
 
-    @atomic.action_timer("catalog.create_elasticsearch_service_instance")
-    def _create_elasticsearch_instance(self, service_Id, instancefile):
+    @atomic.action_timer("catalog.create_mongoDB_service_instance")
+    def _create_mongoDb_instance(self, service_Id, instancefile):
         """
-        :returns: Elasticsearch Service instance
+        :returns: Mongo DB Service instance
         """
-        logging.info("Create Elasticsearch instance")
+        logging.info("Create mongoDB instance")
         InstanceCreateCommand = "catalog" + " create-instance  " + \
             service_Id + "-i" + instancefile
         status, output = self.executeShellCommand(InstanceCreateCommand)
@@ -155,13 +155,56 @@ class CatalogScenario(scenario.OpenStackScenario, testtools.TestCase):
         instance_Id = output
         return instance_Id
 
-    @atomic.action_timer("catalog.delete_elasticsearch_service_instance")
-    def _delete_elasticsearch_instance(self, instance_Id):
-        logging.info("Delete Elasticsearch instance")
+    @atomic.action_timer("catalog.delete_mongoDB_service_instance")
+    def _delete_mongoDb_instance(self, instance_Id):
+        logging.info("Delete mongoDB instance")
         InstanceDeleteCommand = "catalog" + "delete-instance " + \
             "-f " + instance_Id
         status, output = self.executeShellCommand(InstanceDeleteCommand)
         self.assertEqual(status, 0)
+
+    @atomic.action_timer("catalog.create_redis_service_instance")
+    def _create_redis_instance(self, service_Id, instancefile):
+        """
+        :returns: Redis Service instance
+        """
+        logging.info("Create redis instance")
+        InstanceCreateCommand = "catalog" + " create-instance  " + \
+            service_Id + "-i" + instancefile
+        status, output = self.executeShellCommand(InstanceCreateCommand)
+        self.assertEqual(status, 0)
+        instance_Id = output
+        return instance_Id
+
+    @atomic.action_timer("catalog.delete_redis_service_instance")
+    def _delete_redis_instance(self, instance_Id):
+        logging.info("Delete redis instance")
+        InstanceDeleteCommand = "catalog" + "delete-instance " + \
+            "-f " + instance_Id
+        status, output = self.executeShellCommand(InstanceDeleteCommand)
+        self.assertEqual(status, 0)
+
+    @atomic.action_timer("catalog.create_vertica_service_instance")
+    def _create_vertica_instance(self, service_Id, instancefile):
+        """
+        :returns: Vertica Service instance
+        """
+        logging.info("Create vertica instance")
+        InstanceCreateCommand = "catalog" + " create-instance  " + \
+            service_Id + "-i" + instancefile
+        status, output = self.executeShellCommand(InstanceCreateCommand)
+        self.assertEqual(status, 0)
+        instance_Id = output
+        return instance_Id
+
+    @atomic.action_timer("catalog.delete_vertica_service_instance")
+    def _delete_vertica_instance(self, instance_Id):
+        logging.info("Delete vertica instance")
+        InstanceDeleteCommand = "catalog" + "delete-instance " + \
+            "-f " + instance_Id
+        status, output = self.executeShellCommand(InstanceDeleteCommand)
+        self.assertEqual(status, 0)
+
 
     def executeShellCommand(self, strCommand):
         status, output = commands.getstatusoutput(strCommand)

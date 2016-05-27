@@ -1,0 +1,7 @@
+{
+    "instance_id": "redis",
+    "description": "Redis Database Instance",
+    "service_id": "hpe-catalog:redis",
+    "version": "3.0",
+    "labels": ["database", "redis"]
+}

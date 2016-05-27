@@ -70,14 +70,37 @@ class CatalogSoakTests(utils.CatalogScenario):
         self._delete_cassandra_instance(instance_Id)
 
     @scenario.configure()
-    def create_delete_elasticsearch_instance(self, service_Id, instanceFile):
+    def create_delete_redis_instance(self, service_Id, instanceFile):
         """
            This method tests create and delete functionality for
-           elasticsearch service instance
+           redis service instance
         """
-        #  Create Elasticsearch service instance
-        instance_Id = self.create_elasticsearch_instance(
-            service_Id, instanceFile)
+        #  Create redis service instance
+        instance_Id = self.create_redis_instance(service_Id, instanceFile)
 
-        #  Delete Elasticsearch service  instance
-        self._delete_elasticsearch_instance(instance_Id)
+        #  Delete redis service  instance
+        self._delete_redis_instance(instance_Id)
+
+    @scenario.configure()
+    def create_delete_vertica_instance(self, service_Id, instanceFile):
+        """
+           This method tests create and delete functionality for
+           vertica service instance
+        """
+        #  Create Vertica service instance
+        instance_Id = self.create_vertica_instance(service_Id, instanceFile)
+
+        #  Delete Vertica service  instance
+        self._delete_vertica_instance(instance_Id)
+
+    @scenario.configure()
+    def create_delete_mongoDb_instance(self, service_Id, instanceFile):
+        """
+           This method tests create and delete functionality for
+           mongo DB service instance
+        """
+        #  Create Mongo DB service instance
+        instance_Id = self.create_mongoDb_instance(service_Id, instanceFile)
+
+        #  Delete Mongo DB service  instance
+        self._delete_mongoDb_instance(instance_Id)

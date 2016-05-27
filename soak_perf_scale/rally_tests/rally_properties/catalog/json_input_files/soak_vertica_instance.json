@@ -1,0 +1,17 @@
+{
+    "CatalogSoakTests.create_delete_vertica_instance": [
+        {
+            "args": {
+                "service_Id": "hpe-catalog:vertica",
+                "instanceFile": "${WORKDIR}/cnap-qa/soak_perf_scale/rally_tests/rally_properties/catalog/service_config_files/vertica-config.json"
+            },
+            "runner": {
+                "type": "constant",
+                "concurrency": 1,
+                "times": 1
+            },
+            "context": {
+            }
+        }
+    ]
+}
