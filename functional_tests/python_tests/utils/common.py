@@ -57,4 +57,7 @@ def send_request(req_url, method, body=None, headers=None):
     req = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
     response, content = req.request(
         req_url, method=method, body=body, headers=headers)
-    return response, json.loads(content)
+    if method == "DELETE":
+        return response, content
+    else:
+        return response, json.loads(content)

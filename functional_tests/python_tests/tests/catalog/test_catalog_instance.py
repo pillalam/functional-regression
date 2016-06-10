@@ -1,6 +1,7 @@
 import ast
 import base
 import random
+
 from utils import catalog_instance
 
 
@@ -28,44 +29,36 @@ class TestCatalogInstance(base.BaseTest):
             instance_details = instance_all_details[inst]
             kwargs = {}
             if 'kwargs' in instance_details:
-                if type('kwargs') == list:
-                    kwargs['parameters'] = instance_details['kwargs'][0]
+                params = ast.literal_eval(instance_details['kwargs'])
+                if type(params) == list:
+                    kwargs['parameters'] = params[0]
                 else:
-                    kwargs['parameters'] = instance_details['kwargs']
-                # Create Catalog Instance
-                response, instance = catalog_instance.create_instance(
-                    self.catalog_host, instance_details['instance_id'],
-                    instance_details['service_id'],
-                    ast.literal_eval(instance_details['labels']),
-                    instance_details['version'],
-                    instance_details['description'], **kwargs)
+                    kwargs['parameters'] = params
+            # Create Catalog Instance
+            response, instance = catalog_instance.create_instance(
+                self.catalog_host, instance_details['instance_id'],
+                instance_details['service_id'],
+                ast.literal_eval(instance_details['labels']),
+                instance_details['version'],
+                instance_details['description'], **kwargs)
+            self.assertEqual(response['status'], '201')
 
-                # List instances
-                response, list_instances = catalog_instance.list_instances(
-                    self.catalog_host)
-                self.assertEqual(response['status'], '200')
-                self.assertIn(instance_details['instance_id'], list_instances)
+            # List instances
+            response, list_instances = catalog_instance.list_instances(
+                self.catalog_host)
+            self.assertEqual(response['status'], '200')
 
-                # Verify details of a catalog instance
-                response, get_instance = catalog_instance.show_instance(
-                    self.catalog_host, instance_details['instance_id'])
-                self.assertEqual(response['status'], '200')
-                self.assertEqual(get_instance['instance_id'],
-                                 instance_details['instance_id'])
-                self.assertEqual(get_instance['service_id'],
-                                 instance_details['service_id'])
-                self.assertEqual(get_instance['labels'],
-                                 ast.literal_eval(instance_details['labels']))
-                self.assertEqual(get_instance['version'],
-                                 instance_details['version'])
-                self.assertEqual(get_instance['description'],
-                                 instance_details['description'])
+            # Verify details of a catalog instance
+            response, get_instance = catalog_instance.show_instance(
+                self.catalog_host, instance_details['instance_id'])
+            self.assertEqual(response['status'], '200')
+            self.assertEqual(get_instance['id'],
+                             str(instance_details['instance_id']))
 
-                # Delete a catalog instance
-                response, _ = catalog_instance.delete_instance(
-                    self.catalog_host, instance_details['instance_id'])
-                self.assertEqual(response['status'], '200')
-
+            # Delete a catalog instance
+            response, content = catalog_instance.delete_instance(
+                self.catalog_host, instance_details['instance_id'])
+            self.assertEqual(response['status'], '202')
 
 if __name__ == '__main__':
     base.unittest.main()

@@ -19,15 +19,24 @@ class TestCatalogService(base.BaseTest):
         super(TestCatalogService, cls).tearDownClass()
         pass
 
+    def test_get_list_catalog(self):
+        # Verify Get Catalog
+        catalog_id = "hpe-catalog"
+        response, catalog = catalog_service.show_catalog(self.catalog_host,
+                                                         catalog_id)
+        self.assertEqual("hpe-catalog", catalog['id'])
+        self.assertEqual("hpe-catalog", catalog['name'])
+        self.assertEqual("200", response['status'])
+
+        # Verify list Catalog
+        response, catalogs = catalog_service.list_catalogs(self.catalog_host)
+        self.assertEqual("200", response['status'])
+        self.assertIn(catalog, catalogs)
+
     def test_cat_service_list(self):
         service_id = "hpe-catalog:mysql"
         service_name = "MySQL"
         version = "5.6"
-        # List all Catalogs
-        response, content = catalog_service.list_catalogs(self.catalog_host)
-        self.assertEqual("hpe-catalog", content[0]['id'])
-        self.assertEqual("hpe-catalog", content[0]['name'])
-        self.assertEqual("200", response['status'])
 
         # Lists all catalog services
         response, services = catalog_service.list_services(self.catalog_host)

@@ -1,7 +1,6 @@
 import os
 import common
 import json
-import ast
 
 
 def list_instances(catalog_host):
@@ -30,7 +29,7 @@ def create_instance(catalog_host, instance_id,
                       "labels": labels
                    }
     if kwargs.get('parameters'):
-        data = ast.literal_eval(kwargs.get('parameters'))
+        data = kwargs.get('parameters')
         parameters.append(data)
         request_data['parameters'] = parameters
     body = json.dumps(request_data)
@@ -43,7 +42,7 @@ def create_instance(catalog_host, instance_id,
 
 
 def delete_instance(catalog_host, instance_id):
-    url = "v1/instances" + "/" + "{" + instance_id + "}"
+    url = "v1/instances" + "/" + instance_id  
     catalog_host = "http://" + catalog_host
     req_url = '%s/%s' % (catalog_host, url)
     return common.send_request(req_url, method='DELETE')
