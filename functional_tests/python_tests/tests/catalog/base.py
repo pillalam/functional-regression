@@ -3,16 +3,20 @@ import os
 import re
 import ConfigParser
 
+from utils import catalog_service
+
 
 class BaseTest(unittest.TestCase):
 
     @classmethod
     def get_instance_details(cls):
-        service_details = ['redis-details', 'vertica-details',
-                           'spark-details', 'havenondemand-details',
-                           'mysql-details', 'mysqlcluster-details',
-                           'mongodb-details', 'cassandra-details',
-                           'elasticsearch-details']
+        '''This method fetches available services and
+        forms json body for catalog instance creation'''
+        expected_services = ['redis', 'vertica', 'spark', 'havenondemand',
+                             'mysql', 'mysql-cluster', 'mongo', 'casandra',
+                             'elasticsearch', 'dev-mysql']
+        service_details = \
+            list(set(cls.actual_services).intersection(set(expected_services)))
         instance_all_details = {}
         for service in service_details:
             instance_params = cls.read_from_config(service)
@@ -39,6 +43,10 @@ class BaseTest(unittest.TestCase):
         cls.read_from_config(CONF_SECTION='catalog-details')
         cls.catalog_host = cls.Config.get(
             cls.CONF_SECTION_CONN, 'CATALOG_HOST')
+        _, services = catalog_service.list_services(cls.catalog_host)
+        cls.actual_services = []
+        for s in services:
+            cls.actual_services.append(s['id'].split(':')[1])
         cls.get_instance_details()
 
     def verify(self, expression, output):
