@@ -14,7 +14,7 @@ class TestHcfSecurityGroups(base.BaseTest):
 
     """
     SetupClass prepares the following preconditions for
-    Organisation, Space and Domain tests
+    Security Group tests
     * Connect to the cluster URI target
     """
 
