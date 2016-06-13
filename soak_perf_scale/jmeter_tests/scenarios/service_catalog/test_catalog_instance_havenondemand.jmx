@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="2.9" jmeter="3.0 r1743807">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Service Catalog Mysql Create Delete Operations" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Service Catalog havenondemand instance Create Delete Operations" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -56,7 +56,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Service Catalog Mysql Instance Create Delete Operations" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Service Catalog Nondemand Instance Create Delete Operations" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -104,21 +104,20 @@
           <boolProp name="perThread">false</boolProp>
         </RandomVariableConfig>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Instance" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Havenondemand Instance" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{&#xd;
-    &quot;name&quot;: &quot;mysql_${counter_thread}&quot;,&#xd;
-    &quot;description&quot;: &quot;dev mysql server&quot;,&#xd;
-    &quot;service_id&quot;: &quot;hpe-catalog:mysql&quot;,&#xd;
-    &quot;version&quot;: &quot;5.5&quot;,&#xd;
-    &quot;labels&quot;: [&quot;mysql&quot;, &quot;CF&quot;, &quot;dev&quot;],&#xd;
-    &quot;parameters&quot;:[&#xd;
-        { &quot;name&quot;: &quot;MYSQL_ROOT_PASSWORD&quot;, &quot;value&quot;: &quot;root123&quot;}&#xd;
-    ]&#xd;
+                <stringProp name="Argument.value">{&quot;description&quot;:&quot;Havenondemand Instance&quot;,&#xd;
+&quot;name&quot;:&quot;havenondemand_${counter_thread}&quot;,&#xd;
+&quot;labels&quot;:[&quot;Image Analysis&quot;,&quot;Indexing and Search&quot;,&quot;Format Conversion&quot;,&quot;Data Policy&quot;,&quot;Prediction&quot;,&quot;Audio/Video Analytics&quot;,&quot;Connectors&quot;,&quot;Search&quot;],&#xd;
+&quot;kwargs&quot;:[{&quot;name&quot;:&quot;HOD_API_KEY&quot;,&quot;value&quot;:&quot;hod-api-key&quot;},&#xd;
+          {&quot;name&quot;:&quot;CSM_PARAMETERS&quot;,&quot;value&quot;:&quot;csm-parameters&quot;},&#xd;
+          {&quot;name&quot;:&quot;CSM_API_KEY&quot;,&quot;value&quot;:&quot;csm-auth-key&quot;}],&#xd;
+&quot;service_id&quot;:&quot;hpe-catalog:havenondemand&quot;,&#xd;
+&quot;version&quot;:&quot;1.0&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -167,7 +166,7 @@
           </JSONPostProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List MySQL Instance" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List Havenondemand Instance" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -198,7 +197,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete Instances" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete Havenondemand Instance" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -240,7 +239,7 @@ vars.put(&quot;status&quot;,0);</stringProp>
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List MySQL Instance" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List Nondemand Instance" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -298,7 +297,7 @@ vars.put(&quot;status&quot;,0);</stringProp>
             <stringProp name="ActionProcessor.duration">{delay}</stringProp>
           </TestAction>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List MySQL Instance" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List Havenondemand Instance" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
