@@ -21,6 +21,22 @@ public class GalleryviewPage {
 	         return element;
 	 
 	         }
+	     
+	     public static WebElement accountSettings(WebDriver driver){
+		   	 
+	         element = driver.findElement(By.xpath(".//*[@id='navbar']/icons/avatar/div/div[2]/account-actions/div/div[2]/span[1]/a/i"));
+	 
+	         return element;
+	 
+	         }
+	     
+	     public static WebElement applicationcard(WebDriver driver){
+		   	 
+	         element = driver.findElement(By.xpath(".//span[contains(text(),'ace')]"));
+	 
+	         return element;
+	 
+	         }
 	     public static void signoutConsole(WebDriver driver)
 	     {
 	    	 userSettings(driver).click();
