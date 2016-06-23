@@ -37,6 +37,27 @@ def frame_command(
     return out, err
 
 
+def frame_command_nonexecuteshell(
+        cli, action, input_data=None,
+        positional_args=list(), optional_args=dict()):
+    if cli == 'hdpctl':
+        shell_command = Config.get(CONF_SECTION_CONN, 'hdpctl_command') + " "
+    if cli == 'hcf':
+        shell_command = Config.get(CONF_SECTION_CONN, 'hcf_command') + " "
+
+    command = shell_command + action + " "
+    # Appending positional parameters
+    if len(positional_args) != 0:
+        for value in positional_args:
+            command = command + value + " "
+
+    # Checking for optional parameters
+    if optional_args is not None:
+        for k in optional_args.keys():
+            command = command + k + " " + optional_args[k] + " "
+    return command
+
+
 def executeShellCommand(strCommand, input_arg=None):
     print strCommand
     proc = subprocess.Popen(strCommand, stdin=subprocess.PIPE,

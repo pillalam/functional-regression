@@ -23,6 +23,10 @@ class BaseTest(unittest.TestCase):
             cls.CONF_SECTION_CONN, 'password')
         cls.app_path = cls.Config.get(
             cls.CONF_SECTION_CONN, 'app_path')
+        cls.app_path = cls.Config.get(
+            'application-details', 'app_path')
+        cls.app_dir = cls.Config.get(
+            'application-details', 'app_dir')
 
     def verify(self, expression, output):
         if re.search(expression, output):
