@@ -21,6 +21,8 @@ def frame_command(
         shell_command = Config.get(CONF_SECTION_CONN, 'hdpctl_command') + " "
     if cli == 'hcf':
         shell_command = Config.get(CONF_SECTION_CONN, 'hcf_command') + " "
+    if cli == 'hce':
+        shell_command = Config.get(CONF_SECTION_CONN, 'hcf_command') + " "
 
     command = shell_command + action + " "
 
