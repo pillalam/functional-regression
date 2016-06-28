@@ -14,7 +14,9 @@ class BaseTest(unittest.TestCase):
         forms json body for catalog instance creation'''
         expected_services = ['redis', 'vertica', 'spark', 'havenondemand',
                              'mysql', 'mysql-cluster', 'mongo', 'casandra',
-                             'elasticsearch', 'dev-mysql']
+                             'elasticsearch', 'dev-mysql', 'dev-redis',
+                             'dev-postgres', 'dev-rabbitmq',
+                             'dev-mongo', 'k8-guestbook']
         service_details = \
             list(set(cls.actual_services).intersection(set(expected_services)))
         instance_all_details = {}
