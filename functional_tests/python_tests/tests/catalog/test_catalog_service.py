@@ -34,26 +34,9 @@ class TestCatalogService(base.BaseTest):
         self.assertIn(catalog, catalogs)
 
     def test_cat_service_list(self):
-        service_id = "hpe-catalog:mysql"
-        service_name = "MySQL"
-        version = "5.6"
-
-        # Lists all catalog services
-        response, services = catalog_service.list_services(self.catalog_host)
-        self.assertEqual("200", response['status'])
-        services_list = []
-        for service in services:
-            services_list.append(service['name'])
-        expected_services = ['Cassandra', 'ElasticSearch', 'GuestBook',
-                             'MySQL', 'Google Translate', 'Mongo',
-                             'Haven Image Analysis', 'Redis Server',
-                             'Docker Registry', 'Helion Cloud Foundry',
-                             'Spark Cluster', 'Vertica Server Community',
-                             'Helion CodeEngine', 'Percona Cluster']
-        missing_services = set(expected_services) - set(services_list)
-        self.assertFalse(missing_services,
-                         "Failed to find service in the fetched list %s:"
-                         % ', '.join(s for s in missing_services))
+        service_id = "hpe-catalog:helionce"
+        service_name = "Helion CodeEngine"
+        version = "1.0.0"
 
         # Show details of a catalog service
         response, content = catalog_service.show_service(
@@ -62,6 +45,20 @@ class TestCatalogService(base.BaseTest):
         self.assertEqual(service_name, content['name'])
         self.assertEqual("200", response['status'])
 
+        # Lists all catalog services
+        response, services = catalog_service.list_services(self.catalog_host)
+        self.assertEqual("200", response['status'])
+        services_list = []
+        for service in services:
+            services_list.append(service['name'])
+        expected_services = ['MySQL', 'Mongo', 'Haven On Demand',
+                             'Redis', 'Helion Cloud Foundry',
+                             'Helion CodeEngine', 'RabbitMQ']
+        missing_services = set(expected_services) - set(services_list)
+        self.assertFalse(missing_services,
+                         "Failed to find service in the fetched list %s:"
+                         % ', '.join(s for s in missing_services))
+
         # List all versions for a catalog service
         response, versions = catalog_service.list_service_versions(
             self.catalog_host, service_id)
@@ -69,7 +66,7 @@ class TestCatalogService(base.BaseTest):
         versions_list = []
         for ver in versions:
             versions_list.append(ver['version'])
-        expected_versions = ['5.5', '5.6']
+        expected_versions = ['1.0.0']
         missing_versions = set(expected_versions) - set(versions_list)
         self.assertFalse(missing_versions,
                          "Failed to find version in the fetched list %s:"
