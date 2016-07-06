@@ -20,3 +20,17 @@ def list_space(optional_args=dict()):
     out, err = common.frame_command(
         'hcf', 'spaces', optional_args=optional_args)
     return out, err
+
+
+def rename_space(old_name, new_name, optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'rename-space', positional_args=[old_name, new_name],
+        optional_args=optional_args)
+    return out, err
+
+
+def space(name, optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'space', positional_args=[name],
+        optional_args=optional_args)
+    return out, err

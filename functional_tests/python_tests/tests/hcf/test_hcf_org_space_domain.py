@@ -54,15 +54,32 @@ class TestHcfOrgSpaceDomain(base.BaseTest):
         out, err = hcf_space.list_space()
         self.verify(space_name, out)
 
+        # Space Information
+        out, err = hcf_space.space(space_name)
+        self.verify("Getting info for space", out)
+        self.verify("OK", out)
+
         # List Domains
         out, err = hcf_domain.list_domain()
         self.verify("Getting domains in org " + org_name, out)
 
+        # Rename org
+        new_org_name = 'new_og_test_org' + str(random.randint(1024, 4096))
+        out, err = hcf_organisations.rename_org(org_name, new_org_name)
+        self.verify(new_org_name, out)
+        self.verify("OK", out)
+
+        # Rename space
+        new_space_name = 'new_sp_test_space' + str(random.randint(1024, 4096))
+        out, err = hcf_space.rename_space(space_name, new_space_name)
+        self.verify(new_space_name, out)
+        self.verify("OK", out)
+
         # Delete space and org
-        out, err = hcf_space.delete_space(space_name, input_data=b'yes\n')
+        out, err = hcf_space.delete_space(new_space_name, input_data=b'yes\n')
         self.verify("OK", out)
         out, err = hcf_organisations.delete_org(
-            org_name, input_data=b'yes\n')
+            new_org_name, input_data=b'yes\n')
         self.verify("OK", out)
 
 if __name__ == '__main__':
