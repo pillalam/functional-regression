@@ -22,6 +22,13 @@ def list_quotas(optional_args=dict()):
     return out, err
 
 
+def quota_info(name, optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'quota', positional_args=[name],
+        optional_args=optional_args)
+    return out, err
+
+
 def set_quota(org_name, quota_name, optional_args=dict()):
     out, err = common.frame_command(
         'hcf', 'set-quota', positional_args=[org_name, quota_name],
@@ -35,9 +42,30 @@ def set_target(optional_args=dict()):
     return out, err
 
 
+def update_quota(name, optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'update-quota', positional_args=[name],
+        optional_args=optional_args)
+    return out, err
+
+
 def create_space_quota(name, optional_args=dict()):
     out, err = common.frame_command(
         'hcf', 'create-space-quota', positional_args=[name],
+        optional_args=optional_args)
+    return out, err
+
+
+def update_space_quota(name, optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'update-space-quota', positional_args=[name],
+        optional_args=optional_args)
+    return out, err
+
+
+def space_quota_info(name, optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'space-quota', positional_args=[name],
         optional_args=optional_args)
     return out, err
 
