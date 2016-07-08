@@ -21,6 +21,24 @@ def create_secgroup_rule_json():
     return jsonFileName
 
 
+def updated_secgroup_rule_json():
+    """
+    :param jsonFileLocation: Location of json_create base file
+    :returns: json file location
+    """
+    param_list = []
+    param_dict = {}
+    jsonFileName = "jsonFile" + str(random.randint(1024, 4096))
+    param_dict["protocol"] = "tcp"
+    param_dict["destination"] = "10.244.1.19"
+    param_dict["ports"] = "3306"
+    param_list.append(param_dict)
+    with open(jsonFileName, 'w') as json_file:
+        json.dump(param_list, json_file)
+    json_file.close()
+    return jsonFileName
+
+
 def create_security_group(secgroup, secgroup_path,  optional_args=dict()):
     out, err = common.frame_command(
         'hcf', 'create-security-group', positional_args=
@@ -31,6 +49,13 @@ def create_security_group(secgroup, secgroup_path,  optional_args=dict()):
 def list_security_groups(optional_args=dict()):
     out, err = common.frame_command(
         'hcf', 'security-groups', optional_args=optional_args)
+    return out, err
+
+
+def update_security_group(secgroup, secgroup_path,  optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'update-security-group', positional_args=
+        [secgroup, secgroup_path], optional_args=optional_args)
     return out, err
 
 
