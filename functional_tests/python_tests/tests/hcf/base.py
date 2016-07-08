@@ -27,6 +27,8 @@ class BaseTest(unittest.TestCase):
             'application-details', 'app_path')
         cls.app_dir = cls.Config.get(
             'application-details', 'app_dir')
+        cls.docker_image = cls.Config.get(
+            'application-details', 'docker_image')
 
     def verify(self, expression, output):
         if re.search(expression, output):
