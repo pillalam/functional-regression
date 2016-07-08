@@ -45,6 +45,15 @@ class TestHcfQuotas(base.BaseTest):
         self.verify("Getting quotas", out)
         self.verify("OK", out)
 
+        # Display Quota Info
+        out, err = hcf_quotas.quota_info(quota_name)
+        self.verify("OK", out)
+
+        # Update Quota
+        out, err = hcf_quotas.update_quota(quota_name,
+                                           optional_args={'-m': '1G'})
+        self.verify("OK", out)
+
         # Create Org
         org_name = 'og_test_org' + str(random.randint(1024, 4096))
         out, err = hcf_organisations.create_org(org_name)
@@ -59,40 +68,49 @@ class TestHcfQuotas(base.BaseTest):
         # Set Target to Org
         out, err = hcf_quotas.set_target(optional_args={'-o': org_name})
 
-        # create space-quota
+        # Create Space-Quota
         space_quota_name = 'sp_quota_test' + str(random.randint(1024, 4096))
         out, err = hcf_quotas.create_space_quota(space_quota_name)
         self.verify(space_quota_name, out)
         self.verify("OK", out)
 
-        # create space
+        # Create Space
         space_name = 'sp_test' + str(random.randint(1024, 4096))
         out, err = hcf_space.create_space(space_name)
         self.verify(space_name, out)
         self.verify("OK", out)
 
-        # set space-quota to space
+        # Update Space Quota
+        out, err = hcf_quotas.update_space_quota(space_quota_name,
+                                                 optional_args={'-s': '150'})
+        self.verify("OK", out)
+
+        # Display Space Quota Info
+        out, err = hcf_quotas.space_quota_info(space_quota_name)
+        self.verify("OK", out)
+
+        # Set Space-Quota to Space
         out, err = hcf_quotas.set_space_quota(space_name, space_quota_name)
         self.verify("Assigning space quota " + space_quota_name, out)
         self.verify("OK", out)
 
-        # list space-quotas
+        # List Space-Quotas
         out, err = hcf_quotas.list_space_quotas()
         self.verify("Getting space quotas", out)
         self.verify("OK", out)
 
-        # unset space-quota
+        # Unset Space-Quota
         out, err = hcf_quotas.unset_space_quota(space_name, space_quota_name)
         self.verify("Unassigning space quota " + space_quota_name, out)
         self.verify("OK", out)
 
-        # delete space-quota
+        # Delete Space-Quota
         out, err = hcf_quotas.delete_space_quota(
             space_quota_name, input_data=b'yes\n')
         self.verify("Deleting space quota " + space_quota_name, out)
         self.verify("OK", out)
 
-        # delete space
+        # Delete Space
         out, err = hcf_space.delete_space(
             space_name, input_data=b'yes\n')
         self.verify("OK", out)
