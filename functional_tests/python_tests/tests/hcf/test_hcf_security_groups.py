@@ -114,6 +114,18 @@ class TestHcfSecurityGroups(base.BaseTest):
                     " from defaults for running", out)
         self.verify("OK", out)
 
+        # Update Security Group Rule
+        jsonFileName = hcf_security_groups.updated_secgroup_rule_json()
+
+        # Update Security Group
+        out, err = hcf_security_groups.update_security_group(secgroup_name,
+                                                             jsonFileName)
+        self.verify("Updating security group", out)
+        self.verify("OK", out)
+
+        # View Security Group Info
+        out, err = hcf_security_groups.view_security_group(secgroup_name)
+
         # Delete Security Group and Rules file
         out, err = hcf_security_groups.delete_security_group(
             secgroup_name, input_data=b'yes\n')
