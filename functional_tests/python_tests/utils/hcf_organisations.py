@@ -20,3 +20,10 @@ def list_orgs(optional_args=dict()):
     out, err = common.frame_command(
         'hcf', 'orgs', optional_args=optional_args)
     return out, err
+
+
+def rename_org(old_name, new_name, optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'rename-org', positional_args=[old_name, new_name],
+        optional_args=optional_args)
+    return out, err
