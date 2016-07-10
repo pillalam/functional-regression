@@ -23,12 +23,10 @@ class BaseTest(unittest.TestCase):
             cls.CONF_SECTION_CONN, 'password')
         cls.app_path = cls.Config.get(
             cls.CONF_SECTION_CONN, 'app_path')
-        cls.app_path = cls.Config.get(
-            'application-details', 'app_path')
-        cls.app_dir = cls.Config.get(
-            'application-details', 'app_dir')
         cls.docker_image = cls.Config.get(
             'application-details', 'docker_image')
+        cls.app_url = cls.Config.get(
+            'application-details', 'git_url')
 
     def verify(self, expression, output):
         if re.search(expression, output):
