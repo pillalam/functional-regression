@@ -1,9 +1,24 @@
+import subprocess
 import common
+from git import Repo
+import os
+import shutil
+import stat
 
 
 def list_apps(optional_args=dict()):
     out, err = common.frame_command(
         'hcf', 'apps', optional_args=optional_args)
+    return out, err
+
+
+def downloadApplication(appCloneLocation, appDirectoryName):
+    if os.path.exists(appDirectoryName):
+        shutil.rmtree(appDirectoryName)
+    os.mkdir(appDirectoryName)
+    Repo.clone_from(appCloneLocation, appDirectoryName)
+    out, err = common.executeShellCommand(
+        'chmod -R 777 ' + str(appDirectoryName))
     return out, err
 
 

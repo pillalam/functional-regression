@@ -9,6 +9,8 @@ from utils import hcf_auth
 from utils import hcf_organisations
 from utils import hcf_space
 from utils import hcf_apps
+from urlparse import urlparse
+from utils import common
 
 
 class TestHcfApps(base.BaseTest):
@@ -40,6 +42,9 @@ class TestHcfApps(base.BaseTest):
         out, err = hcf_auth.target(optional_args={'-o': cls.org_name})
         cls.space_name = 'sp_test_space' + str(random.randint(1024, 4096))
         out, err = hcf_space.create_space(cls.space_name)
+        parsed = urlparse(cls.app_url)
+        link = parsed.path.split('/')
+        cls.app_dir = link[len(link)-1]
 
     @classmethod
     def tearDownClass(cls):
@@ -51,22 +56,20 @@ class TestHcfApps(base.BaseTest):
 
         # Logout from Cluster
         hcf_auth.logout(cls.cluster_url)
+        if os.path.isdir(cls.app_dir):
+            common.executeShellCommand(
+                'rm -rf ' + str(cls.app_dir))
 
     def test_hcf_apps(self):
-
         # Target space
         out, err = hcf_auth.target(optional_args={'-s': self.space_name})
-
+        out, err = hcf_apps.downloadApplication(self.app_url, self.app_dir)
         # Push application
-        out, err = hcf_apps.push_app(self.app_dir, self.app_path)
+        out, err = hcf_apps.push_app(self.app_dir, self.app_dir)
 
         # verify if application deployed successfully
         time.sleep(60)
-        self.verify("deployed", out)
-        regex2 = 'http:\/\/(.+?)\/ deployed'
-        app_url = re.findall(regex2, out)
-        r = requests.get("http://" + app_url[0])
-        self.assertEqual(200, r.status_code)
+        self.verify("App started", out)
 
         # List application
         out, err = hcf_apps.list_apps()
