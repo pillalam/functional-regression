@@ -17,8 +17,8 @@ Config.read(CONF_FILE)
 def frame_command(
         cli, action, input_data=None,
         positional_args=list(), optional_args=dict()):
-    if cli == 'hdpctl':
-        shell_command = Config.get(CONF_SECTION_CONN, 'hdpctl_command') + " "
+    if cli == 'hcf_hsm':
+        shell_command = Config.get(CONF_SECTION_CONN, 'hcf_hsm_command') + " "
     if cli == 'hcf':
         shell_command = Config.get(CONF_SECTION_CONN, 'hcf_command') + " "
     if cli == 'hce':

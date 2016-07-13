@@ -27,6 +27,16 @@ class BaseTest(unittest.TestCase):
             'application-details', 'docker_image')
         cls.app_url = cls.Config.get(
             'application-details', 'git_url')
+        cls.hsm_api = cls.Config.get(
+            'hsm-service-details', 'api')
+        cls.hsm_username = cls.Config.get(
+            'hsm-service-details', 'username')
+        cls.hsm_password = cls.Config.get(
+            'hsm-service-details', 'password')
+        cls.instance_name = cls.Config.get(
+            'hsm-service-details', 'instance_name')
+        cls.cf_instance_name = cls.Config.get(
+            'hsm-service-details', 'cf_instance_name')
 
     def verify(self, expression, output):
         if re.search(expression, output):
