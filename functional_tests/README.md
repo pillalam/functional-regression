@@ -1,1 +1,1 @@
-# CNAP1.0 - Functional Tests
+# Helion Stackato 4.0 - Functional Tests

@@ -1,11 +1,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Login Logout Test Suite">
-	<parameter name="url" value="http://192.168.91.131/"/>
+	<parameter name="url" value="http:///"/>
 	<test name="Stratos Login Test">
-	    <parameter name="nonadminuser" value="dev"/>
-	    <parameter name="nonadminpwd" value="dev"/>
-	    <parameter name="adminuser" value="admin"/>
-	    <parameter name="adminpwd" value="admin"/>
+	    <parameter name="nonadminuser" value="ravi1"/>
+	    <parameter name="nonadminpwd" value="ravi1"/>
+	    <parameter name="adminuser" value="admin@cnap.local"/>
+	    <parameter name="adminpwd" value="cnapadmin"/>
 	     <classes>
 	         <class name="com.helion.selenium.StratosConsole.TestConsoleLogin" />
 	     </classes>
