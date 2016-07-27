@@ -31,7 +31,7 @@ public class TestConsoleLogin {
 	        //driver = new FirefoxDriver();
 	    	
 	    	//uncomment below lines if you want to execute tests on chrome driver browser
-	    	System.setProperty("webdriver.chrome.driver", "chromedriver");
+	    	//System.setProperty("webdriver.chrome.driver", "chromedriver");
 	    	driver = new ChromeDriver();
 	    	
 	    	//uncomment below line if you want to execute tests on HtmlUnitDriver browser
@@ -51,7 +51,7 @@ public class TestConsoleLogin {
 	    public void test_auth_nonadmin_user(String username, String password){
 	    try{
 	    		driver.get(consolUrl);
-	    		Assert.assertEquals("",driver.getTitle());
+	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
 	    		if(LoginPage.login(driver).isDisplayed()){
 	    			LoginPage.loginToConsole(driver, username, password);
 	    			if(GalleryviewPage.userSettings(driver).isDisplayed())
@@ -73,7 +73,7 @@ public class TestConsoleLogin {
 	    public void test_auth_admin_user(String username, String password){
 	    try{
 	    		driver.get(consolUrl);
-	    		Assert.assertEquals("",driver.getTitle());
+	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
 	    		if(LoginPage.login(driver).isDisplayed()){
 	    			LoginPage.loginToConsole(driver, username, password);
 	    			if(GalleryviewPage.userSettings(driver).isDisplayed()){
@@ -94,7 +94,7 @@ public class TestConsoleLogin {
 	    public void test_delete_application(String username, String password) throws InterruptedException{
 	    try{
 	    		driver.get(consolUrl);
-	    		Assert.assertEquals("",driver.getTitle());
+	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
 	    		if(LoginPage.login(driver).isDisplayed()){
 	    			LoginPage.loginToConsole(driver, username, password);
 	    			if(GalleryviewPage.userSettings(driver).isDisplayed()){
@@ -126,7 +126,7 @@ public class TestConsoleLogin {
 	    public void test_register_service(String username, String password) throws InterruptedException {
 	    try{
 	    		driver.get(consolUrl);
-	    		Assert.assertEquals("",driver.getTitle());
+	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
 	    		if(LoginPage.login(driver).isDisplayed()){
 	    			LoginPage.loginToConsole(driver, username, password);
 	    			if(GalleryviewPage.userSettings(driver).isDisplayed()){
