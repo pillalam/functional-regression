@@ -15,7 +15,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="api_endpoint" elementType="Argument">
             <stringProp name="Argument.name">api_endpoint</stringProp>
-            <stringProp name="Argument.value">${__P(api_endpoint,https://api.52.33.6.207.nip.io)}</stringProp>
+            <stringProp name="Argument.value">${__P(api_endpoint,https://api.cnapqe1.domain.com.ravikumar-venkatesan.stacktest.io)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="username" elementType="Argument">
@@ -40,22 +40,22 @@
           </elementProp>
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
-            <stringProp name="Argument.value">${__P(duration,10)}</stringProp>
+            <stringProp name="Argument.value">${__P(duration,180)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="no_of_instances" elementType="Argument">
             <stringProp name="Argument.name">no_of_instances</stringProp>
-            <stringProp name="Argument.value">${__P(no_of_instances,1)}</stringProp>
+            <stringProp name="Argument.value">${__P(no_of_instances,2)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="disk_limit" elementType="Argument">
             <stringProp name="Argument.name">disk_limit</stringProp>
-            <stringProp name="Argument.value">${__P(disk_limit,1G)}</stringProp>
+            <stringProp name="Argument.value">${__P(disk_limit,2G)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="mem_limit" elementType="Argument">
             <stringProp name="Argument.name">mem_limit</stringProp>
-            <stringProp name="Argument.value">${__P(mem_limit,1G)}</stringProp>
+            <stringProp name="Argument.value">${__P(mem_limit,2G)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="app_path" elementType="Argument">
@@ -97,7 +97,7 @@
           <stringProp name="script">${__setProperty(counter_value,${counter_thread})}</stringProp>
         </BeanShellPostProcessor>
         <hashTree/>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Connect to end point" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Connect " enabled="true">
           <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">cf</stringProp>
@@ -218,7 +218,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Org_${__property(counter_value)}</stringProp>
+                <stringProp name="Argument.value">soaktest_org_${__property(counter_value)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -257,7 +257,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Org_${__property(counter_value)}</stringProp>
+                <stringProp name="Argument.value">soaktest_org_${__property(counter_value)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -281,7 +281,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Space_${__property(counter_value)}</stringProp>
+                <stringProp name="Argument.value">soaktest_space_${__property(counter_value)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -320,7 +320,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Space_${__property(counter_value)}</stringProp>
+                <stringProp name="Argument.value">Soaktest_space_${__property(counter_value)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -344,7 +344,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_App_${__property(counter_value)}</stringProp>
+                <stringProp name="Argument.value">soaktest_app_${__property(counter_value)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -394,7 +394,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_App_${__property(counter_value)}</stringProp>
+                <stringProp name="Argument.value">soaktest_app_${__property(counter_value)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
               <elementProp name="" elementType="Argument">
@@ -451,7 +451,7 @@
           <hashTree/>
         </hashTree>
       </hashTree>
-      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="Delete app, org and Logout from cluster" enabled="true">
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="Delete app, org and Logout from cluster" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -466,7 +466,7 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </PostThreadGroup>
       <hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Delete App" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Delete App" enabled="false">
           <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">cf</stringProp>
@@ -514,7 +514,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Org_${__property(counter_value)}</stringProp>
+                <stringProp name="Argument.value">soaktest_org_${__property(counter_value)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -536,7 +536,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="logout" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="logout" enabled="false">
           <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">cf</stringProp>
