@@ -13,9 +13,14 @@
     <hashTree>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments">
-          <elementProp name="http_protocol" elementType="Argument">
-            <stringProp name="Argument.name">http_protocol</stringProp>
-            <stringProp name="Argument.value">${__P(http_protocol,http)}</stringProp>
+          <elementProp name="protocol" elementType="Argument">
+            <stringProp name="Argument.name">protocol</stringProp>
+            <stringProp name="Argument.value">${__P(protocol,http)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="app_url" elementType="Argument">
+            <stringProp name="Argument.name">app_url</stringProp>
+            <stringProp name="Argument.value">${__P(app_url,app_url)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="threads" elementType="Argument">
@@ -31,11 +36,6 @@
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
             <stringProp name="Argument.value">${__P(duration,10)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="app_url" elementType="Argument">
-            <stringProp name="Argument.name">app_url</stringProp>
-            <stringProp name="Argument.value">${__P(app_url,app_url)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -94,7 +94,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${http_protocol}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/fib</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -171,7 +171,7 @@
               <idleTime>true</idleTime>
             </value>
           </objProp>
-          <stringProp name="filename">/home/chrup/hcf/4thjune/results_hcf_fib_app.jtl</stringProp>
+          <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
