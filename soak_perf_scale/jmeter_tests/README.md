@@ -1,3 +1,3 @@
 # JMeter Tests
 
-Jmeter soak tests for console.
+Jmeter soak tests 

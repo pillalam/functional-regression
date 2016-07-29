@@ -40,7 +40,7 @@
           </elementProp>
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
-            <stringProp name="Argument.value">${__P(duration,1800)}</stringProp>
+            <stringProp name="Argument.value">${__P(duration,18)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -61,7 +61,7 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </SetupThreadGroup>
       <hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Connect to end point" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Connection to HCF" enabled="true">
           <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">cf</stringProp>
@@ -207,7 +207,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Org_${counter_thread}</stringProp>
+                <stringProp name="Argument.value">soaktest_org_${counter_thread}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -241,7 +241,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Org_${counter_thread}</stringProp>
+                <stringProp name="Argument.value">soaktest_org_${counter_thread}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -279,7 +279,7 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </PostThreadGroup>
       <hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="logout" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="logout" enabled="false">
           <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">cf</stringProp>
@@ -358,7 +358,7 @@
             <threadCounts>true</threadCounts>
           </value>
         </objProp>
-        <stringProp name="filename">/home/chrup/hcf/27thJuly/results_hcf_org_space.jtl</stringProp>
+        <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">

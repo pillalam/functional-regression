@@ -15,7 +15,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="api_endpoint" elementType="Argument">
             <stringProp name="Argument.name">api_endpoint</stringProp>
-            <stringProp name="Argument.value">${__P(api_endpoint,https://api.52.40.31.250.nip.io)}</stringProp>
+            <stringProp name="Argument.value">${__P(api_endpoint,https://api.cnapqe1.domain.com.ravikumar-venkatesan.stacktest.io )}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="username" elementType="Argument">
@@ -30,7 +30,7 @@
           </elementProp>
           <elementProp name="threads" elementType="Argument">
             <stringProp name="Argument.name">threads</stringProp>
-            <stringProp name="Argument.value">${__P(threads,1)}</stringProp>
+            <stringProp name="Argument.value">${__P(threads,3)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="ramp_up" elementType="Argument">
@@ -40,7 +40,7 @@
           </elementProp>
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
-            <stringProp name="Argument.value">${__P(duration,10)}</stringProp>
+            <stringProp name="Argument.value">${__P(duration,60)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -61,7 +61,7 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </SetupThreadGroup>
       <hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Connect to end point" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Connection " enabled="true">
           <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">cf</stringProp>
@@ -162,7 +162,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Org_${counter_thread}</stringProp>
+                <stringProp name="Argument.value">soaktest_org_${counter_thread}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -201,7 +201,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Org_${counter_thread}</stringProp>
+                <stringProp name="Argument.value">soaktest_org_${counter_thread}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -280,7 +280,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Space_${counter_thread}</stringProp>
+                <stringProp name="Argument.value">soaktest_space_${counter_thread}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -314,7 +314,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Space_${counter_thread}</stringProp>
+                <stringProp name="Argument.value">soaktest_space_${counter_thread}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -337,7 +337,7 @@
           <hashTree/>
         </hashTree>
       </hashTree>
-      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="Logout from cluster" enabled="true">
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="Delete Org" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -365,7 +365,7 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">Soak_Org_${counter_thread}</stringProp>
+                <stringProp name="Argument.value">soaktest_org_${counter_thread}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -387,7 +387,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="logout" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="logout" enabled="false">
           <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">cf</stringProp>
