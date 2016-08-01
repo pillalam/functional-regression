@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Login Logout Test Suite">
-        <test name="Trials Test">
+<suite name="Google login/logout sample Test Suite">
+        <test name="sample Test">
              <classes>
                 <class name="com.helion.selenium.StratosConsole.GoogleHomePageTest"/>
              </classes>
