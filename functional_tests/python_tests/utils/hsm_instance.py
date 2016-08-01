@@ -3,22 +3,24 @@ import common
 import json
 
 
-def list_instances(catalog_host):
+def list_instances(catalog_host, headers):
     url = "v1/instances"
     catalog_host = "http://" + catalog_host
     req_url = '%s/%s' % (catalog_host, url)
-    return common.send_request(req_url, method='GET')
+    headers = {'Authorization': headers}
+    return common.send_request(req_url, method='GET', headers=headers)
 
 
-def show_instance(catalog_host, instance_id):
+def show_instance(catalog_host, instance_id, headers):
     url = "v1/instances" + "/" + instance_id
     catalog_host = "http://" + catalog_host
     req_url = '%s/%s' % (catalog_host, url)
-    return common.send_request(req_url, method='GET')
+    headers = {'Authorization': headers}
+    return common.send_request(req_url, method='GET', headers=headers)
 
 
-def create_instance(catalog_host, instance_id,
-                    service_id, labels, version, description, **kwargs):
+def create_instance(catalog_host, instance_id, service_id,
+                    labels, version, description, headers, **kwargs):
     parameters = []
     data = {}
     request_data = {
@@ -33,7 +35,7 @@ def create_instance(catalog_host, instance_id,
         parameters.append(data)
         request_data['parameters'] = parameters
     body = json.dumps(request_data)
-    headers = {'Content-Type': 'application/json'}
+    headers = {'Content-Type': 'application/json', 'Authorization': headers}
     url = "v1/instances"
     catalog_host = "http://" + catalog_host
     req_url = '%s/%s' % (catalog_host, url)
@@ -41,8 +43,30 @@ def create_instance(catalog_host, instance_id,
                                body=body, headers=headers)
 
 
-def delete_instance(catalog_host, instance_id):
+def delete_instance(catalog_host, instance_id, headers):
     url = "v1/instances" + "/" + instance_id  
     catalog_host = "http://" + catalog_host
     req_url = '%s/%s' % (catalog_host, url)
-    return common.send_request(req_url, method='DELETE')
+    headers = {'Authorization': headers}
+    return common.send_request(req_url, method='DELETE', headers=headers)
+
+def configure_instance(catalog_host, instance_id, service_id, version,
+                       vendor, headers, **kwargs):
+    data = {}
+    parameters = []
+    if kwargs.get('parameters'):
+        data = kwargs.get('parameters')
+        parameters.append(data)
+    post_body = {
+                    "service_id": service_id,
+                    "version": version,
+                    "vendor": vendor,
+                    "parameters": parameters
+                }
+    body = json.dumps(post_body)
+    headers = {'Content-Type': 'application/json', 'Authorization': headers}
+    url = "v1/instances" + "/" + instance_id
+    catalog_host = "http://" + catalog_host
+    req_url = '%s/%s' % (catalog_host, url)
+    return common.send_request(req_url, method='PUT',
+                               body=body, headers=headers)

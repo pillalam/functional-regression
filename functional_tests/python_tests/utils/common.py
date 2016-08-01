@@ -14,6 +14,12 @@ Config = ConfigParser.ConfigParser()
 Config.read(CONF_FILE)
 
 
+CONF_FILE_HSM = os.environ.get('READ CONFIG FILE', os.path.expanduser(
+    BASE_PATH + '/config/hsm.conf'))
+CONF_SECTION_CONN_HSM = 'command'
+Config = ConfigParser.ConfigParser()
+Config.read(CONF_FILE_HSM)
+
 def frame_command(
         cli, action, input_data=None,
         positional_args=list(), optional_args=dict()):
@@ -23,6 +29,8 @@ def frame_command(
         shell_command = Config.get(CONF_SECTION_CONN, 'hcf_command') + " "
     if cli == 'hce':
         shell_command = Config.get(CONF_SECTION_CONN, 'hce_command') + " "
+    if cli == 'hsm':
+        shell_command = Config.get(CONF_SECTION_CONN_HSM, 'hsm_command') + " "
 
     command = shell_command + action + " "
 
@@ -80,7 +88,7 @@ def send_request(req_url, method, body=None, headers=None):
     req = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
     response, content = req.request(
         req_url, method=method, body=body, headers=headers)
-    if method == "DELETE":
+    if method == "DELETE" or method =="PUT":
         return response, content
     else:
         return response, json.loads(content)
