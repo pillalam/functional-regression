@@ -3,21 +3,27 @@ import sys
 import re
 import base
 import random
+import time
 
 from utils import hcf_auth
 from utils import hcf_organisations
 from utils import hcf_space
-from utils import hcf_domain
 from utils import hcf_apps
 from utils import hcf_routes
+from utils import hcf_domain
+from urlparse import urlparse
+from utils import common
 
 
 class TestHcfRoutes(base.BaseTest):
 
     """
     SetupClass prepares the following preconditions for
-    Organisation, Space and Domain tests
+    Application tests
     * Connect to the cluster URI target
+    * Login to the cluster
+    * Create Organisation
+    * Create Space
     """
 
     @classmethod
@@ -30,58 +36,71 @@ class TestHcfRoutes(base.BaseTest):
         # Loginto Cluster using creds
         hcf_auth.login(optional_args={'-u': cls.username, '-p': cls.password})
 
+        # Create Organisation
+        cls.org_name = 'og_test_org' + str(random.randint(1024, 4096))
+        out, err = hcf_organisations.create_org(cls.org_name)
+
+        # Create Space
+        out, err = hcf_auth.target(optional_args={'-o': cls.org_name})
+        cls.space_name = 'sp_test_space' + str(random.randint(1024, 4096))
+        out, err = hcf_space.create_space(cls.space_name)
+        parsed = urlparse(cls.app_url)
+        link = parsed.path.split('/')
+        cls.app_dir = link[len(link)-1]
+
     @classmethod
     def tearDownClass(cls):
         super(TestHcfRoutes, cls).tearDownClass()
+
+        # Delete org
+        out, err = hcf_organisations.delete_org(
+            cls.org_name, input_data=b'yes\n')
+
+        # Logout from Cluster
         hcf_auth.logout(cls.cluster_url)
+        if os.path.isdir(cls.app_dir):
+            common.executeShellCommand(
+                'rm -rf ' + str(cls.app_dir))
 
-    def test_hcf_create_delete_route(self):
-        # Create Organisation
-        org_name = 'og_test_org' + str(random.randint(1024, 4096))
-        out, err = hcf_organisations.create_org(org_name)
-        self.verify(org_name, out)
-        self.verify("OK", out)
-
-        # Create Space
-        out, err = hcf_auth.target(optional_args={'-o': org_name})
-        space_name = 'sp_test_space' + str(random.randint(1024, 4096))
-        out, err = hcf_space.create_space(space_name)
-        self.verify(space_name, out)
-        self.verify("OK", out)
+    def test_hcf_routes_(self):
+        # Target space
+        out, err = hcf_auth.target(optional_args={'-s': self.space_name})
 
         # Create Domain
         domain_name = 'domain' + str(random.randint(1024, 4096)) + '.com'
-        out, err = hcf_domain.create_domain(org_name, domain_name)
+        out, err = hcf_domain.create_domain(self.org_name, domain_name)
         self.verify(domain_name, out)
         self.verify("OK", out)
 
         # Create Route
-        out, err = hcf_routes.create_route(space_name, domain_name)
+        out, err = hcf_routes.create_route(self.space_name, domain_name)
         self.verify("Creating route", out)
         self.verify("OK", out)
 
         # Target space
-        out, err = hcf_auth.target(optional_args={'-s': space_name})
+        out, err = hcf_auth.target(optional_args={'-s': self.space_name})
 
         # List Routes
         out, err = hcf_routes.list_routes()
         self.verify("Getting routes", out)
 
-        # push app
-        app_name = 'test_app' + str(random.randint(1024, 4096))
-        out, err = hcf_apps.push_app(app_name,
-                                     optional_args={'-f': self.app_path})
+        # download app
+        out, err = hcf_apps.downloadApplication(self.app_url, self.app_dir)
 
-        self.verify("Creating app " + app_name, out)
+        # Push application
+        out, err = hcf_apps.push_app(self.app_dir, self.app_dir)
+
+        # verify if application deployed successfully
+        time.sleep(60)
         self.verify("App started", out)
 
         # map route to app
-        out, err = hcf_routes.map_route(app_name, domain_name)
+        out, err = hcf_routes.map_route(self.app_dir, domain_name)
         self.verify("Adding route " + domain_name + " to app", out)
         self.verify("OK", out)
 
         # unmap route from app
-        out, err = hcf_routes.unmap_route(app_name, domain_name)
+        out, err = hcf_routes.unmap_route(self.app_dir, domain_name)
         self.verify("Removing route " + domain_name + " from app", out)
         self.verify("OK", out)
 
@@ -89,13 +108,6 @@ class TestHcfRoutes(base.BaseTest):
         out, err = hcf_routes.delete_orphaned_routes(input_data=b'yes\n')
         self.verify("Deleting route", out)
         self.verify("OK", out)
-
-        # Delete org
-        out, err = hcf_organisations.delete_org(
-            org_name, input_data=b'yes\n')
-        self.verify("Deleting org " + org_name, out)
-        self.verify("OK", out)
-
 
 if __name__ == '__main__':
     base.unittest.main()
