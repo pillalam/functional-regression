@@ -67,3 +67,10 @@ def push_docker_app(docker_app_name, optional_args=dict()):
         'hcf', 'push', positional_args=[docker_app_name],
         optional_args=optional_args)
     return out, err
+
+
+def show_app(app_name, optional_args=dict()):
+    out, err = common.frame_command(
+        "hcf", 'app', positional_args=[app_name],
+        optional_args=optional_args)
+    return out, err
