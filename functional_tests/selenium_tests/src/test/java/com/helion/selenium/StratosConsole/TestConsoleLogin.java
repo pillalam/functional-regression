@@ -1,4 +1,5 @@
 package com.helion.selenium.StratosConsole;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 
@@ -15,12 +16,16 @@ import org.testng.annotations.Test;
 import pages.GalleryviewPage;
 import pages.LoginPage;
 import pages.SummaryPage;
-import pages.SettingsPage;;
+import pages.SettingsPage;
+import pages.EndpointsPage;
+import pages.ClustersPage;
 
 public class TestConsoleLogin {
 
 	private static WebDriver driver = null;
 	public static String consolUrl = null;
+	public static String clusterName = null;
+	public static Random random = null;
 	
 		@Parameters({"url"})
 		@BeforeTest
@@ -36,8 +41,10 @@ public class TestConsoleLogin {
 	    	
 	    	//uncomment below line if you want to execute tests on HtmlUnitDriver browser
 	    	//driver = new HtmlUnitDriver(true);
-	    	
+	        random = new Random();
+	        clusterName = "Cluster"+random.nextInt(1000);
 	        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	       
 	    }
 	    
 	    @AfterTest
@@ -48,12 +55,13 @@ public class TestConsoleLogin {
 	    
 	    @Parameters({ "nonadminuser", "nonadminpwd"})
 	    @Test
-	    public void test_auth_nonadmin_user(String username, String password){
+	    public void test_auth_nonadmin_user(String username, String password) throws InterruptedException{
 	    try{
 	    		driver.get(consolUrl);
 	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
 	    		if(LoginPage.login(driver).isDisplayed()){
 	    			LoginPage.loginToConsole(driver, username, password);
+	    			Thread.sleep(5000);
 	    			if(GalleryviewPage.userSettings(driver).isDisplayed())
 	    			{
 	    				GalleryviewPage.signoutConsole(driver);
@@ -66,16 +74,17 @@ public class TestConsoleLogin {
 	    	}catch(NoSuchElementException ex){
 	    			System.out.println(ex.getMessage());
 	    		}
-	    }	 
+	    }
 	    
 	    @Parameters({ "adminuser", "adminpwd"})
 	    @Test
-	    public void test_auth_admin_user(String username, String password){
+	    public void test_auth_admin_user(String username, String password) throws InterruptedException{
 	    try{
 	    		driver.get(consolUrl);
 	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
 	    		if(LoginPage.login(driver).isDisplayed()){
 	    			LoginPage.loginToConsole(driver, username, password);
+	    			Thread.sleep(5000);
 	    			if(GalleryviewPage.userSettings(driver).isDisplayed()){
 	    				GalleryviewPage.signoutConsole(driver);
 	    			}
@@ -88,7 +97,43 @@ public class TestConsoleLogin {
 	    			}
 	    	}  
 	    
-	        
+	    @Parameters({ "adminuser", "adminpwd", "clusterurl", "clusteruser", "clusterpwd"})
+	    @Test
+	    public void test_cluster_register_connect_disconnect(String username, String password, String clusterurl, String clusteruser, String clusterpwd ) throws InterruptedException{
+	    try{
+	    		driver.get(consolUrl);
+	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
+	    		if(LoginPage.login(driver).isDisplayed()){
+	    			LoginPage.loginToConsole(driver, username, password);
+	    			Thread.sleep(5000);
+	    		}
+	    		else{
+	    			System.out.println("Login button is not displayed");
+	    		}
+	    		//register cluster
+	    		GalleryviewPage.endPoints(driver).click();
+	    		driver.navigate().refresh();
+	    		if(EndpointsPage.registration(driver).isDisplayed()){
+	    			EndpointsPage.registerCluster(driver, clusterurl, clusterName);
+	    			Thread.sleep(5000);
+	    		}
+	    		//connect cluster
+	    		EndpointsPage.cfClusterChart(driver).click();
+	    		if(ClustersPage.clusterActionsMenu(driver, clusterName).isDisplayed())
+	    		{
+	    			ClustersPage.connectCluster(driver, clusterName, clusteruser, clusterpwd);
+	    		}
+	    		//disconnect cluster
+	    		if(ClustersPage.clusterActionsMenu(driver, clusterName).isDisplayed())
+	    		{
+	    			ClustersPage.disConnectCluster(driver, clusterName);
+	    		}
+	    		
+	    	}catch(NoSuchElementException ex){
+	    				System.out.println(ex.getMessage());
+	    			}
+	    	}  
+	    
 	    @Parameters({ "adminuser", "adminpwd"})
 	    @Test
 	    public void test_delete_application(String username, String password) throws InterruptedException{
@@ -119,42 +164,5 @@ public class TestConsoleLogin {
 	    				System.out.println(ex.getMessage());
 	    		
 	    }
-	    }
-	    
-	    @Parameters({ "adminuser", "adminpwd"})
-	    @Test
-	    public void test_register_service(String username, String password) throws InterruptedException {
-	    try{
-	    		driver.get(consolUrl);
-	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
-	    		if(LoginPage.login(driver).isDisplayed()){
-	    			LoginPage.loginToConsole(driver, username, password);
-	    			if(GalleryviewPage.userSettings(driver).isDisplayed()){
-	    				GalleryviewPage.userSettings(driver).click();
-	    				GalleryviewPage.accountSettings(driver).click();
-	    			}
-	    		}
-	    		else{
-	    			System.out.println("Login button is not displayed");
-	    		}
-	    		if(SettingsPage.connect(driver).isDisplayed())
-	    		{
-	    			SettingsPage.connect(driver).click();
-	    			SettingsPage.form(driver).click();
-	    			SettingsPage.serviceUsername(driver).sendKeys("test");
-	    			SettingsPage.servicePassword(driver).sendKeys("test");
-	    			Thread.sleep(5000);
-	    			SettingsPage.Register(driver).click();
-	    			Thread.sleep(5000);
-	    			GalleryviewPage.signoutConsole(driver);
-	    		}
-	    		else{
-	    			System.out.println("Connect link is not displayed");
-	    		}
-	    		
-	    	}catch(NoSuchElementException ex){
-	    				System.out.println(ex.getMessage());   		
-	    }
-	    }
-	    
+	    }	    
 		}
