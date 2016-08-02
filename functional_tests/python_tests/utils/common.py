@@ -7,11 +7,12 @@ import httplib2
 import json
 
 BASE_PATH = os.getcwd().split()[0]
-CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
+HCF_CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
     BASE_PATH + '/config/hcf.conf'))
+HCE_CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
+    BASE_PATH + '/config/hce.conf'))
 CONF_SECTION_CONN = 'command'
 Config = ConfigParser.ConfigParser()
-Config.read(CONF_FILE)
 
 
 CONF_FILE_HSM = os.environ.get('READ CONFIG FILE', os.path.expanduser(
@@ -23,11 +24,16 @@ Config.read(CONF_FILE_HSM)
 def frame_command(
         cli, action, input_data=None,
         positional_args=list(), optional_args=dict()):
+    args_gap = " "
     if cli == 'hcf_hsm':
+        Config.read(HCF_CONF_FILE)
         shell_command = Config.get(CONF_SECTION_CONN, 'hcf_hsm_command') + " "
     if cli == 'hcf':
+        Config.read(HCF_CONF_FILE)
         shell_command = Config.get(CONF_SECTION_CONN, 'hcf_command') + " "
     if cli == 'hce':
+        args_gap = ""
+        Config.read(HCE_CONF_FILE)
         shell_command = Config.get(CONF_SECTION_CONN, 'hce_command') + " "
     if cli == 'hsm':
         shell_command = Config.get(CONF_SECTION_CONN_HSM, 'hsm_command') + " "
@@ -42,7 +48,7 @@ def frame_command(
     # Checking for optional parameters
     if optional_args is not None:
         for k in optional_args.keys():
-            command = command + k + " " + optional_args[k] + " "
+            command = command + k + args_gap + optional_args[k] + " "
     out, err = executeShellCommand(command, input_arg=input_data)
     return out, err
 
@@ -53,6 +59,7 @@ def frame_command_nonexecuteshell(
     if cli == 'hdpctl':
         shell_command = Config.get(CONF_SECTION_CONN, 'hdpctl_command') + " "
     if cli == 'hcf':
+        Config.read(HCF_CONF_FILE)
         shell_command = Config.get(CONF_SECTION_CONN, 'hcf_command') + " "
 
     command = shell_command + action + " "

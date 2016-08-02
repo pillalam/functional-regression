@@ -21,6 +21,18 @@ class BaseTest(unittest.TestCase):
             cls.CONF_SECTION_CONN, 'username')
         cls.password = cls.Config.get(
             cls.CONF_SECTION_CONN, 'password')
+        cls.repo_url = cls.Config.get(
+            'project-details', 'repo_url')
+        cls.branch = cls.Config.get(
+            'project-details', 'branch')
+        cls.container_id = cls.Config.get(
+            'project-details', 'container_id')
+        cls.deployment_target_id = cls.Config.get(
+            'project-details', 'deployment_target_id')
+        cls.repo_username = cls.Config.get(
+            'project-details', 'repo_username')
+        cls.repo_password = cls.Config.get(
+            'project-details', 'repo_password')
 
     def verify(self, expression, output):
         if re.search(expression, output):
