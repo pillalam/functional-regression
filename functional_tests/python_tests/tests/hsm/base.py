@@ -57,8 +57,7 @@ class BaseTest(unittest.TestCase):
         cls.password = cls.Config.get(
             cls.CONF_SECTION_CONN1, 'password')
         cls.read_from_config(CONF_SECTION='catalog-details')
-        cls.catalog_host = cls.Config.get(
-            cls.CONF_SECTION_CONN2, 'CATALOG_HOST')
+        cls.catalog_host = cls.cluster_url.split('//', 1)[1]
         cls.catalog_id = cls.Config.get(
             cls.CONF_SECTION_CONN2, 'catalog_id')
         cls.service_id = cls.Config.get(
@@ -68,6 +67,12 @@ class BaseTest(unittest.TestCase):
         cls.version = cls.Config.get(
             cls.CONF_SECTION_CONN2, 'version')
 
+        # Login to hsm api
+        hsm_auth.connect_target(cls.cluster_url)
+
+        # Target to the HSM service endpoint
+        hsm_auth.login(optional_args={'-u': cls.username, '-p': cls.password})
+        # Get services
         _, services = hsm_service.list_services(cls.catalog_host,
                                                 headers=cls.get_token())
         cls.actual_services = []
@@ -129,14 +134,14 @@ class BaseTest(unittest.TestCase):
         headers = cls.get_token()
         timeout = 300
         response, _ = hsm_instance.show_instance(
-                    cls.catalog_host, instance_id, headers=headers)
+            cls.catalog_host, instance_id, headers=headers)
         status_code = response['status']
         start_time = int(time.time())
         while(status_code != '404'):
             time.sleep(20)
             timeElapsed = int(time.time()) - start_time
             response, _ = hsm_instance.show_instance(
-                    cls.catalog_host, instance_id, headers=headers)
+                cls.catalog_host, instance_id, headers=headers)
             status_code = response['status']
             if (timeElapsed >= int(timeout)):
                 raise Exception(

@@ -124,9 +124,9 @@ class TestHSMInstance(base.BaseTest):
         _, get_instance = hsm_instance.show_instance(
             self.catalog_host, instance_id,
             headers=headers)
-        self.assertTrue(\
+        self.assertTrue(
             set(parameters[0].items()).issubset(
-            set(get_instance['instance']['parameters'][0].items())))
+                set(get_instance['instance']['parameters'][0].items())))
 
 if __name__ == '__main__':
     base.unittest.main()
