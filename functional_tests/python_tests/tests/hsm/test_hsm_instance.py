@@ -129,4 +129,4 @@ class TestHSMInstance(base.BaseTest):
                 set(get_instance['instance']['parameters'][0].items())))
 
 if __name__ == '__main__':
-    base.unittest.main()
+    base.unittest.main(verbosity=2)

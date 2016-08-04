@@ -61,4 +61,4 @@ class TestHceProjects(base.BaseTest):
         self.verify('deleted', out)
 
 if __name__ == '__main__':
-    base.unittest.main()
+    base.unittest.main(verbosity=2)

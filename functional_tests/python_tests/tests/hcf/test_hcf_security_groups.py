@@ -134,4 +134,4 @@ class TestHcfSecurityGroups(base.BaseTest):
         os.remove(jsonFileName)
 
 if __name__ == '__main__':
-    base.unittest.main()
+    base.unittest.main(verbosity=2)

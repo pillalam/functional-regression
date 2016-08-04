@@ -52,4 +52,4 @@ class TestHcfMarketplace(base.BaseTest):
             " / space " + self.setup_space, out)
 
 if __name__ == '__main__':
-    base.unittest.main()
+    base.unittest.main(verbosity=2)

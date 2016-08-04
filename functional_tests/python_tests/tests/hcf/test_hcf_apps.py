@@ -91,4 +91,4 @@ class TestHcfApps(base.BaseTest):
         self.verify("OK", out)
 
 if __name__ == '__main__':
-    base.unittest.main()
+    base.unittest.main(verbosity=2)
