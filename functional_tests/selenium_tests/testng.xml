@@ -9,6 +9,9 @@
 	<parameter name="clusterurl" value="https://api.cnapqe1.domain.com.ravikumar-venkatesan.stacktest.io/"/>
 	<parameter name="clusteruser" value="admin"/>
 	<parameter name="clusterpwd" value="changeme"/>
+	<parameter name="hceurl" value="http://hce.ravikumar-venkatesan.stacktest.io/"/>
+	<parameter name="hceuser" value="admin@cnap.local"/>
+	<parameter name="hcepwd" value="cnapadmin"/>
 		<classes>
 			<class name="com.helion.selenium.StratosConsole.TestConsoleLogin" />
 		</classes>

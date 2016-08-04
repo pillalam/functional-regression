@@ -19,12 +19,14 @@ import pages.SummaryPage;
 import pages.SettingsPage;
 import pages.EndpointsPage;
 import pages.ClustersPage;
+import pages.HcePage;
 
 public class TestConsoleLogin {
 
 	private static WebDriver driver = null;
 	public static String consolUrl = null;
 	public static String clusterName = null;
+	public static String hceName = null;
 	public static Random random = null;
 	
 		@Parameters({"url"})
@@ -43,6 +45,7 @@ public class TestConsoleLogin {
 	    	//driver = new HtmlUnitDriver(true);
 	        random = new Random();
 	        clusterName = "Cluster"+random.nextInt(1000);
+	        hceName = "endPoint"+random.nextInt(1000);
 	        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	       
 	    }
@@ -113,8 +116,8 @@ public class TestConsoleLogin {
 	    		//register cluster
 	    		GalleryviewPage.endPoints(driver).click();
 	    		driver.navigate().refresh();
-	    		if(EndpointsPage.registration(driver).isDisplayed()){
-	    			EndpointsPage.registerCluster(driver, clusterurl, clusterName);
+	    		if(EndpointsPage.cfRegistration(driver).isDisplayed()){
+	    			EndpointsPage.registerCloudFoundry(driver, clusterurl, clusterName);
 	    			Thread.sleep(5000);
 	    		}
 	    		//connect cluster
@@ -127,6 +130,44 @@ public class TestConsoleLogin {
 	    		if(ClustersPage.clusterActionsMenu(driver, clusterName).isDisplayed())
 	    		{
 	    			ClustersPage.disConnectCluster(driver, clusterName);
+	    		}
+	    		
+	    	}catch(NoSuchElementException ex){
+	    				System.out.println(ex.getMessage());
+	    			}
+	    	}  
+	    
+	    
+	    @Parameters({ "adminuser", "adminpwd", "hceurl", "hceuser", "hcepwd"})
+	    @Test
+	    public void test_endpoint_register_connect_disconnect(String username, String password, String hceurl, String hceuser, String hcepwd ) throws InterruptedException{
+	    try{
+	    		driver.get(consolUrl);
+	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
+	    		if(LoginPage.login(driver).isDisplayed()){
+	    			LoginPage.loginToConsole(driver, username, password);
+	    			Thread.sleep(5000);
+	    		}
+	    		else{
+	    			System.out.println("Login button is not displayed");
+	    		}
+	    		//register endPoint
+	    		GalleryviewPage.endPoints(driver).click();
+	    		driver.navigate().refresh();
+	    		if(EndpointsPage.ceRegistration(driver).isDisplayed()){
+	    			EndpointsPage.registerCodeEngine(driver, hceName, hceurl);
+	    			Thread.sleep(5000);
+	    		}
+	    		//connect EndPoint
+	    		EndpointsPage.hceChart(driver).click();
+	    		if(HcePage.hceActionsMenu(driver, hceName).isDisplayed())
+	    		{
+	    			HcePage.connectEndPoint(driver, hceurl, hceuser, hcepwd);
+	    		}
+	    		//disconnect EndPoint
+	    		if(HcePage.hceActionsMenu(driver, hceName).isDisplayed())
+	    		{
+	    			HcePage.disConnectEndPoint(driver, hceName);
 	    		}
 	    		
 	    	}catch(NoSuchElementException ex){
