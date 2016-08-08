@@ -15,7 +15,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="hce_endpoint_url" elementType="Argument">
             <stringProp name="Argument.name">hce_endpoint_url</stringProp>
-            <stringProp name="Argument.value">${__P(hce_endpoint_url,http://a7802ee5d52b211e6b0db0a5b56be43f-190884077.us-west-2.elb.amazonaws.com)}</stringProp>
+            <stringProp name="Argument.value">${__P(hce_endpoint_url,http://hce.ravikumar-venkatesan.stacktest.io)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="username" elementType="Argument">
@@ -68,29 +68,29 @@
             <stringProp name="Argument.value">${__P(repo_password, xxxxxx)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="cf_url" elementType="Argument">
-            <stringProp name="Argument.name">cf_url</stringProp>
-            <stringProp name="Argument.value">${__P(cf_url, xxx)}</stringProp>
+          <elementProp name="hcf_url" elementType="Argument">
+            <stringProp name="Argument.name">hcf_url</stringProp>
+            <stringProp name="Argument.value">${__P(hcf_url, xxx)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="cf_username" elementType="Argument">
-            <stringProp name="Argument.name">cf_username</stringProp>
-            <stringProp name="Argument.value">${__P(cf_username, admin)}</stringProp>
+          <elementProp name="hcf_username" elementType="Argument">
+            <stringProp name="Argument.name">hcf_username</stringProp>
+            <stringProp name="Argument.value">${__P(hcf_username, admin)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="cf_password" elementType="Argument">
-            <stringProp name="Argument.name">cf_password</stringProp>
-            <stringProp name="Argument.value">${__P(cf_password, xxxxx)}</stringProp>
+          <elementProp name="hcf_password" elementType="Argument">
+            <stringProp name="Argument.name">hcf_password</stringProp>
+            <stringProp name="Argument.value">${__P(hcf_password, xxxxx)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="cf__org" elementType="Argument">
-            <stringProp name="Argument.name">cf__org</stringProp>
-            <stringProp name="Argument.value">${__P(cf_org, test-org)}</stringProp>
+          <elementProp name="hcf__org" elementType="Argument">
+            <stringProp name="Argument.name">hcf__org</stringProp>
+            <stringProp name="Argument.value">${__P(hcf_org, test-org)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="cf_space" elementType="Argument">
-            <stringProp name="Argument.name">cf_space</stringProp>
-            <stringProp name="Argument.value">${__P(cf_space, test-space)}</stringProp>
+          <elementProp name="hcf_space" elementType="Argument">
+            <stringProp name="Argument.name">hcf_space</stringProp>
+            <stringProp name="Argument.value">${__P(hcf_space, test-space)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -150,7 +150,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Login to HCE" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="HCE Login" enabled="true">
           <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">hce</stringProp>
@@ -200,7 +200,7 @@
         <boolProp name="perThread">false</boolProp>
       </RandomVariableConfig>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="CRUD operations on projects" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="CRUD - Projects" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -233,27 +233,27 @@
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">--url=cf_url</stringProp>
+                <stringProp name="Argument.value">--url=hcf_url</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">--org=cf_org</stringProp>
+                <stringProp name="Argument.value">--org=hcf_org</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">--space=cf_space</stringProp>
+                <stringProp name="Argument.value">--space=hcf_space</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">--username=cf_username</stringProp>
+                <stringProp name="Argument.value">--username=hcf_username</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
-                <stringProp name="Argument.value">--password=cf_password</stringProp>
+                <stringProp name="Argument.value">--password=hcf_password</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
               <elementProp name="" elementType="Argument">
