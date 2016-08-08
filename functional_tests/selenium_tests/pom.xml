@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.helion.selenium</groupId>
-  <artifactId>StratosConsole</artifactId>
+  <artifactId>StackatoConsole</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>selenium-tests</name>
+  <name>console-tests</name>
   <url>http://maven.apache.org</url>
 
   <properties>

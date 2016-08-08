@@ -2,7 +2,6 @@ package com.helion.selenium.StratosConsole;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 //import org.openqa.selenium.firefox.FirefoxDriver;
@@ -21,7 +20,7 @@ import pages.EndpointsPage;
 import pages.ClustersPage;
 import pages.HcePage;
 
-public class TestConsoleLogin {
+public class TestStackatoConsole {
 
 	private static WebDriver driver = null;
 	public static String consolUrl = null;
@@ -104,7 +103,7 @@ public class TestConsoleLogin {
 	    
 	    @Parameters({ "adminuser", "adminpwd", "clusterurl", "clusteruser", "clusterpwd"})
 	    @Test
-	    public void test_cluster_register_connect_disconnect(String username, String password, String clusterurl, String clusteruser, String clusterpwd ){
+	    public void test_cluster_register(String username, String password, String clusterurl, String clusteruser, String clusterpwd ){
 	    try{
 	    		driver.get(consolUrl);
 	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
@@ -146,7 +145,7 @@ public class TestConsoleLogin {
 	    
 	    @Parameters({ "adminuser", "adminpwd", "hceurl", "hceuser", "hcepwd"})
 	    @Test
-	    public void test_endpoint_register_connect_disconnect(String username, String password, String hceurl, String hceuser, String hcepwd ) {
+	    public void test_endpoint_register(String username, String password, String hceurl, String hceuser, String hcepwd ) {
 	    try{
 	    		driver.get(consolUrl);
 	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
@@ -187,7 +186,7 @@ public class TestConsoleLogin {
 	    
 	    @Parameters({ "adminuser", "adminpwd"})
 	    @Test
-	    public void test_add_delete_application(String username, String password) throws InterruptedException{
+	    public void test_add_delete_app(String username, String password) throws InterruptedException{
 	    try{
 	    		driver.get(consolUrl);
 	    		Assert.assertEquals("Helion Stackato",driver.getTitle());

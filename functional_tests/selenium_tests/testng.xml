@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Login Logout Test Suite">
+<suite name="Helion Stackato Console">
+     <test name="Stratos Console Functional Test">
 	<parameter name="url" value="http://console.ravikumar-venkatesan.stacktest.io/"/>
-	<test name="Stratos Login Test">
 	<parameter name="nonadminuser" value="ravi1"/>
 	<parameter name="nonadminpwd" value="ravi1"/>
 	<parameter name="adminuser" value="admin@cnap.local"/>
@@ -12,8 +12,8 @@
 	<parameter name="hceurl" value="http://hce.ravikumar-venkatesan.stacktest.io/"/>
 	<parameter name="hceuser" value="admin@cnap.local"/>
 	<parameter name="hcepwd" value="cnapadmin"/>
-		<classes>
-			<class name="com.helion.selenium.StratosConsole.TestConsoleLogin" />
-		</classes>
-	</test>
+       	   <classes>
+        	<class name="com.helion.selenium.StratosConsole.TestStackatoConsole" />
+           </classes>
+     </test>
 </suite>
