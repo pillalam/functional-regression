@@ -44,10 +44,9 @@ public class GalleryviewPage {
 	 
 	         return element;
 	 
-	         }
+	         }	     
 	     
-	     
-		     public static WebElement addApp(WebDriver driver){
+		 public static WebElement addApp(WebDriver driver){
 		   	 
 	         element = driver.findElement(By.xpath(".//button[@class='btn btn-primary']"));
 	 
@@ -86,11 +85,24 @@ public class GalleryviewPage {
 	         }
 	     public static WebElement appNameCheck(WebDriver driver, String appName){
 		   	 
-	         element = driver.findElement(By.xpath(" //div/span[contains(text(),"+appName+")]"));
+	         element = driver.findElement(By.xpath("//div/span[contains(text(),"+appName+")]"));
 	 
 	         return element;
 	 
 	         }
+	     
+	     
+	     
+	     public static void addApplication(WebDriver driver, String appName)
+	     {
+	    	addApp(driver).click();
+ 			appName(driver).sendKeys(appName);
+ 			hostName(driver).sendKeys(appName);
+ 			continueButton(driver).click();
+ 			continueButton(driver).click();
+ 			deliveryMethod(driver).click();
+ 			continueButton(driver).click();
+ 	     }
 	     
 	     public static void signoutConsole(WebDriver driver)
 	     {

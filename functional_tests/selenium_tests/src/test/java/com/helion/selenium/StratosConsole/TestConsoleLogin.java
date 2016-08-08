@@ -187,7 +187,7 @@ public class TestConsoleLogin {
 	    
 	    @Parameters({ "adminuser", "adminpwd"})
 	    @Test
-	    public void test_add_application(String username, String password) throws InterruptedException{
+	    public void test_add_delete_application(String username, String password) throws InterruptedException{
 	    try{
 	    		driver.get(consolUrl);
 	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
@@ -202,19 +202,14 @@ public class TestConsoleLogin {
 	    		//Add Application
 	    		if(GalleryviewPage.addApp(driver).isDisplayed())
 	    		{
-	    			GalleryviewPage.addApp(driver).click();
-	    			GalleryviewPage.appName(driver).sendKeys(appName);
-	    			GalleryviewPage.hostName(driver).sendKeys(appName);
-	    			GalleryviewPage.continueButton(driver).click();
-	    			GalleryviewPage.continueButton(driver).click();
-	    			GalleryviewPage.deliveryMethod(driver).click();
-	    			GalleryviewPage.continueButton(driver).click();
-	    			if(GalleryviewPage.appNameCheck(driver, appName).isDisplayed()){
-	    				GalleryviewPage.appNameCheck(driver, appName).click();
-	    			}
+	    			GalleryviewPage.addApplication(driver, appName);
 	    		}
 	    		else{
-	    			System.out.println("Connect link is not displayed");
+	    			System.out.println("Add Application button is not displayed");
+	    		}
+	    		//Delete Application
+	    		if(GalleryviewPage.appNameCheck(driver, appName).isDisplayed()){
+	    		SummaryPage.deleteApplication(driver, appName);
 	    		}
 	    		//Logout
 	    		if(GalleryviewPage.userSettings(driver).isDisplayed())
@@ -225,36 +220,5 @@ public class TestConsoleLogin {
 	    				System.out.println(ex.getMessage());
 	    		
 	    }
-	    }
-	    @Parameters({ "adminuser", "adminpwd"})
-	    @Test
-	    public void test_delete_application(String username, String password) throws InterruptedException{
-	    try{
-	    		driver.get(consolUrl);
-	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
-	    		if(LoginPage.login(driver).isDisplayed()){
-	    			LoginPage.loginToConsole(driver, username, password);
-	    			if(GalleryviewPage.userSettings(driver).isDisplayed()){
-	    				GalleryviewPage.applicationcard(driver).click();
-	    			}
-	    		}
-	    		else{
-	    			System.out.println("Login button is not displayed");
-	    		}
-	    		if(SummaryPage.appHeader(driver).isDisplayed())
-	    		{
-	    			SummaryPage.delete(driver).click();
-	    			Thread.sleep(5000);
-	    			SummaryPage.confirmDelete(driver).click();
-	    			GalleryviewPage.signoutConsole(driver);
-	    		}
-	    		else{
-	    			System.out.println("Connect link is not displayed");
-	    		}
-	    		
-	    	}catch(NoSuchElementException ex){
-	    				System.out.println(ex.getMessage());
-	    		
-	    }
-	    }	    
+	    }   
 		}

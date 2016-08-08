@@ -9,27 +9,41 @@ public class SummaryPage {
 	private static WebElement element = null;
 	 
 	
-    public static WebElement delete(WebDriver driver){
+    public static WebElement appStop(WebDriver driver){
  
-         element = driver.findElement(By.xpath("html/body/console-view/div/div/div/div/ul/li[4]/button"));
+         element = driver.findElement(By.xpath("//button/i[@class='helion-icon helion-icon-lg helion-icon-Halt-stop']"));
  
          return element;
  
          }
     
-    public static WebElement confirmDelete(WebDriver driver){
+    public static WebElement appDelete(WebDriver driver){
     	 
-        element = driver.findElement(By.xpath("html/body/div[1]/div/div/div[3]/button[2]"));
+        element = driver.findElement(By.xpath("//button/i[@class='helion-icon helion-icon-lg helion-icon-Trash']"));
+
+        return element;
+
+    }
+    public static WebElement appState(WebDriver driver){
+	   	 
+        element = driver.findElement(By.xpath("//div/span[contains(text(),'Incomplete')]"));
 
         return element;
 
         }
-    public static WebElement appHeader(WebDriver driver){
-   	 
-        element = driver.findElement(By.cssSelector(".application-header.font-semi-bold.text-uppercase"));
-       
-        return element;
-
-        }
+    
+    public static void deleteApplication(WebDriver driver, String appName)
+    {
+			GalleryviewPage.appNameCheck(driver, appName).click();
+			if(appState(driver).isDisplayed())
+			{
+				appDelete(driver).click();
+			}
+			else
+			{
+				appStop(driver).click();
+				appDelete(driver).click();
+			}
+     }
     
 }
