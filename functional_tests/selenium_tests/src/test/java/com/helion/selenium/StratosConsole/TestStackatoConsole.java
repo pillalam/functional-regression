@@ -58,7 +58,7 @@ public class TestStackatoConsole {
 	    }  
 	    
 	    @Parameters({ "nonadminuser", "nonadminpwd"})
-	    @Test
+	    @Test(priority=1)
 	    public void test_auth_nonadmin_user(String username, String password){
 	    try{
 	    		driver.get(consolUrl);
@@ -81,7 +81,7 @@ public class TestStackatoConsole {
 	    }
 	    
 	    @Parameters({ "adminuser", "adminpwd"})
-	    @Test
+	    @Test(priority=2)
 	    public void test_auth_admin_user(String username, String password){
 	    try{
 	    		driver.get(consolUrl);
@@ -102,7 +102,7 @@ public class TestStackatoConsole {
 	    	}  
 	    
 	    @Parameters({ "adminuser", "adminpwd", "clusterurl", "clusteruser", "clusterpwd"})
-	    @Test
+	    @Test(priority=3)
 	    public void test_cluster_register(String username, String password, String clusterurl, String clusteruser, String clusterpwd ){
 	    try{
 	    		driver.get(consolUrl);
@@ -144,7 +144,7 @@ public class TestStackatoConsole {
 	    
 	    
 	    @Parameters({ "adminuser", "adminpwd", "hceurl", "hceuser", "hcepwd"})
-	    @Test
+	    @Test(priority=4)
 	    public void test_endpoint_register(String username, String password, String hceurl, String hceuser, String hcepwd ) {
 	    try{
 	    		driver.get(consolUrl);
@@ -185,7 +185,7 @@ public class TestStackatoConsole {
 	    
 	    
 	    @Parameters({ "adminuser", "adminpwd"})
-	    @Test
+	    @Test(priority=5)
 	    public void test_add_delete_app(String username, String password) throws InterruptedException{
 	    try{
 	    		driver.get(consolUrl);
