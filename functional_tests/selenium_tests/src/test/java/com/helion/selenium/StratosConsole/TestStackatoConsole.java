@@ -24,16 +24,18 @@ public class TestStackatoConsole {
 
 	private static WebDriver driver = null;
 	public static String consolUrl = null;
+        public static String browser   =null;
 	public static String clusterName = null;
 	public static String hceName = null;
 	public static String appName = null;
 	public static Random random = null;
 	
-		@Parameters({"url"})
+		@Parameters({"url","browser"})
 		@BeforeTest
-	    public void setup(String url){
+	    public void setup(String url, String browser){
 
 			consolUrl = url;
+                        browser   = browser;
 	    	//uncomment below line if you want to execute tests on firefox browser
 	        //driver = new FirefoxDriver();
 	    	

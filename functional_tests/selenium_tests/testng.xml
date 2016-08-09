@@ -2,6 +2,7 @@
 <suite name="Helion Stackato Console">
      <test name="Stratos Console Functional Test">
 	<parameter name="url" value="http://console.ravikumar-venkatesan.stacktest.io/"/>
+        <parameter name="browser" value="chrome"/>
 	<parameter name="nonadminuser" value="ravi1"/>
 	<parameter name="nonadminpwd" value="ravi1"/>
 	<parameter name="adminuser" value="admin@cnap.local"/>
