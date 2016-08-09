@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-//import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -36,15 +36,20 @@ public class TestStackatoConsole {
 
 			consolUrl = url;
                         browser   = browser;
-	    	//uncomment below line if you want to execute tests on firefox browser
-	        //driver = new FirefoxDriver();
+                if (browser.equals("firefox")) 
+                    {	    
+                  driver = new FirefoxDriver();
 	    	
-	    	//uncomment below lines if you want to execute tests on chrome driver browser
-	    	//System.setProperty("webdriver.chrome.driver", "chromedriver");
-	    	driver = new ChromeDriver();
-	    	
-	    	//uncomment below line if you want to execute tests on HtmlUnitDriver browser
-	    	//driver = new HtmlUnitDriver(true);
+                    }
+               else if (browser.equals("chrome")) {	 
+	    	   driver = new ChromeDriver();
+                                                   }
+               else if (browser.equals("ie")) { 
+
+                                                  }
+	
+  	       else if (browser.equals("htmldriver")) {     
+                                                  }
 	        random = new Random();
 	        clusterName = "Cluster"+random.nextInt(1000);
 	        hceName = "endPoint"+random.nextInt(1000);
