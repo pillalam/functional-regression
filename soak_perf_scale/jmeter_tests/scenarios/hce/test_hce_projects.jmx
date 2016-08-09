@@ -15,7 +15,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="hce_endpoint_url" elementType="Argument">
             <stringProp name="Argument.name">hce_endpoint_url</stringProp>
-            <stringProp name="Argument.value">${__P(hce_endpoint_url,http://hce.ravikumar-venkatesan.stacktest.io)}</stringProp>
+            <stringProp name="Argument.value">${__P(hce_endpoint_url,http://a7802ee5d52b211e6b0db0a5b56be43f-190884077.us-west-2.elb.amazonaws.com)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="username" elementType="Argument">
@@ -30,7 +30,7 @@
           </elementProp>
           <elementProp name="threads" elementType="Argument">
             <stringProp name="Argument.name">threads</stringProp>
-            <stringProp name="Argument.value">${__P(threads,1)}</stringProp>
+            <stringProp name="Argument.value">${__P(threads,2)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="ramp_up" elementType="Argument">
@@ -40,7 +40,7 @@
           </elementProp>
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
-            <stringProp name="Argument.value">${__P(duration,30)}</stringProp>
+            <stringProp name="Argument.value">${__P(duration,40)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="branch" elementType="Argument">
@@ -50,7 +50,7 @@
           </elementProp>
           <elementProp name="repo_url" elementType="Argument">
             <stringProp name="Argument.name">repo_url</stringProp>
-            <stringProp name="Argument.value">${__P(repo_url, xxxxxxxx)}</stringProp>
+            <stringProp name="Argument.value">${__P(repo_url, https://github.com/sunil-mamillapalli/helion-hello-node)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="container_id" elementType="Argument">
@@ -60,17 +60,17 @@
           </elementProp>
           <elementProp name="repo_user_name" elementType="Argument">
             <stringProp name="Argument.name">repo_user_name</stringProp>
-            <stringProp name="Argument.value">${__P(repo_user_name, xxxxxx)}</stringProp>
+            <stringProp name="Argument.value">${__P(repo_user_name, sunil-mamillapalli)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="repo_password" elementType="Argument">
             <stringProp name="Argument.name">repo_password</stringProp>
-            <stringProp name="Argument.value">${__P(repo_password, xxxxxx)}</stringProp>
+            <stringProp name="Argument.value">${__P(repo_password, xxxxx)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="hcf_url" elementType="Argument">
             <stringProp name="Argument.name">hcf_url</stringProp>
-            <stringProp name="Argument.value">${__P(hcf_url, xxx)}</stringProp>
+            <stringProp name="Argument.value">${__P(hcf_url, https://api.cnapqe1.domain.com.ravikumar-venkatesan.stacktest.io)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="hcf_username" elementType="Argument">
@@ -85,12 +85,12 @@
           </elementProp>
           <elementProp name="hcf__org" elementType="Argument">
             <stringProp name="Argument.name">hcf__org</stringProp>
-            <stringProp name="Argument.value">${__P(hcf_org, test-org)}</stringProp>
+            <stringProp name="Argument.value">${__P(hcf_org, test-org-hce)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="hcf_space" elementType="Argument">
             <stringProp name="Argument.name">hcf_space</stringProp>
-            <stringProp name="Argument.value">${__P(hcf_space, test-space)}</stringProp>
+            <stringProp name="Argument.value">${__P(hcf_space, test-space-hce)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
