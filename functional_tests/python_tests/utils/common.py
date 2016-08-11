@@ -11,15 +11,13 @@ HCF_CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
     BASE_PATH + '/config/hcf.conf'))
 HCE_CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
     BASE_PATH + '/config/hce.conf'))
+HCP_CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
+    BASE_PATH + '/config/hcp.conf'))
+HSM_CONF_FILE = os.environ.get('READ CONFIG FILE', os.path.expanduser(
+    BASE_PATH + '/config/hsm.conf'))
 CONF_SECTION_CONN = 'command'
 Config = ConfigParser.ConfigParser()
 
-
-CONF_FILE_HSM = os.environ.get('READ CONFIG FILE', os.path.expanduser(
-    BASE_PATH + '/config/hsm.conf'))
-CONF_SECTION_CONN_HSM = 'command'
-Config = ConfigParser.ConfigParser()
-Config.read(CONF_FILE_HSM)
 
 def frame_command(
         cli, action, input_data=None,
@@ -35,8 +33,13 @@ def frame_command(
         args_gap = ""
         Config.read(HCE_CONF_FILE)
         shell_command = Config.get(CONF_SECTION_CONN, 'hce_command') + " "
+    if cli == 'hcp':
+        args_gap = ""
+        Config.read(HCP_CONF_FILE)
+        shell_command = Config.get(CONF_SECTION_CONN, 'hcp_command') + " "
     if cli == 'hsm':
-        shell_command = Config.get(CONF_SECTION_CONN_HSM, 'hsm_command') + " "
+        Config.read(HSM_CONF_FILE)
+        shell_command = Config.get(CONF_SECTION_CONN, 'hsm_command') + " "
 
     command = shell_command + action + " "
 
@@ -76,7 +79,6 @@ def frame_command_nonexecuteshell(
 
 
 def executeShellCommand(strCommand, input_arg=None):
-    print strCommand
     proc = subprocess.Popen(strCommand, stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE,
@@ -85,9 +87,9 @@ def executeShellCommand(strCommand, input_arg=None):
     time.sleep(5)
     out, err = proc.communicate(input_arg)
     if err:
-        print " The Command failed due to the following error:\n " + err
+        print " The Command failed due to the following error:\n" + err
     else:
-        print out
+        pass
     return out, err
 
 
