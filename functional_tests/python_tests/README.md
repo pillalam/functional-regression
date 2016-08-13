@@ -1,4 +1,4 @@
-# Helion Cloud Foundry Functional Tests - Steps to Run the Tests 
+# Helion Stackato 4.0 Functional Tests - Steps to Run the Tests 
 
 ## Preparation
 1. sudo apt-get install python-pip
