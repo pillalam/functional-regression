@@ -21,14 +21,24 @@ class BaseTest(unittest.TestCase):
             cls.CONF_SECTION_CONN, 'username')
         cls.password = cls.Config.get(
             cls.CONF_SECTION_CONN, 'password')
-        cls.repo_url = cls.Config.get(
-            'project-details', 'repo_url')
+        cls.cf_url = cls.Config.get(
+            'cf-cluster-details', 'cf_url')
+        cls.cf_username = cls.Config.get(
+            'cf-cluster-details', 'cf_username')
+        cls.cf_password = cls.Config.get(
+            'cf-cluster-details', 'cf_password')
+        cls.cf_org = cls.Config.get(
+            'cf-cluster-details', 'cf_org')
+        cls.cf_space = cls.Config.get(
+            'cf-cluster-details', 'cf_space')
         cls.branch = cls.Config.get(
             'project-details', 'branch')
+        cls.ref_string = cls.Config.get(
+            'project-details', 'ref_string')
+        cls.repo_url = cls.Config.get(
+            'project-details', 'repo_url')
         cls.container_id = cls.Config.get(
             'project-details', 'container_id')
-        cls.deployment_target_id = cls.Config.get(
-            'project-details', 'deployment_target_id')
         cls.repo_username = cls.Config.get(
             'project-details', 'repo_username')
         cls.repo_password = cls.Config.get(
