@@ -21,6 +21,11 @@
      * url 
      * username
      * password 
-     * 
+     
 
 ## Test HCP
+1. Update hcp.conf in python_tests/config folder with following details:
+     * url 
+     * username
+     * password 
+      
