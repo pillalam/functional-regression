@@ -9,7 +9,6 @@ def create_org(name, optional_args=dict()):
 
 
 def delete_org(name, input_data='y\n', optional_args=dict()):
-    print " input data in delete_org is %s" % input_data
     out, err = common.frame_command(
         'hcf', 'delete-org', positional_args=[name],
         input_data=input_data, optional_args=optional_args)

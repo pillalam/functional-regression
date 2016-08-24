@@ -15,7 +15,6 @@ def create_domain(org_name, domain, optional_args=dict()):
 
 
 def delete_domain(domain_name, input_data='y\n', optional_args=dict()):
-    print " input data in delete_domain is %s" % input_data
     out, err = common.frame_command(
         'hcf', 'delete-domain', positional_args=[domain_name],
         input_data=input_data, optional_args=optional_args)

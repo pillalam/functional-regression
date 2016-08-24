@@ -86,10 +86,6 @@ def executeShellCommand(strCommand, input_arg=None):
                             universal_newlines=True)
     time.sleep(5)
     out, err = proc.communicate(input_arg)
-    if err:
-        print " The Command failed due to the following error:\n" + err
-    else:
-        pass
     return out, err
 
 
@@ -97,7 +93,7 @@ def send_request(req_url, method, body=None, headers=None):
     req = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
     response, content = req.request(
         req_url, method=method, body=body, headers=headers)
-    if method == "DELETE" or method =="PUT":
+    if method == "DELETE" or method == "PUT":
         return response, content
     else:
         return response, json.loads(content)

@@ -29,7 +29,6 @@ def unmap_route(app, domain, optional_args=dict()):
 
 
 def delete_orphaned_routes(input_data='y\n', optional_args=dict()):
-    print " input data in delete_orphaned_routes is %s" % input_data
     out, err = common.frame_command(
         'hcf', 'delete-orphaned-routes', input_data=input_data,
         optional_args=optional_args)

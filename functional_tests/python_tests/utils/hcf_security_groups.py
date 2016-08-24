@@ -60,7 +60,6 @@ def update_security_group(secgroup, secgroup_path,  optional_args=dict()):
 
 
 def delete_security_group(secgroup, input_data='y\n', optional_args=dict()):
-    print " input data in delete_security group is %s" % input_data
     out, err = common.frame_command(
         'hcf', 'delete-security-group', positional_args=[secgroup],
         input_data=input_data, optional_args=optional_args)
