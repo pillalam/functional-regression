@@ -26,6 +26,7 @@ def target(optional_args=dict()):
         'hcf', 'target', optional_args=optional_args)
     return out, err
 
+
 def hsm_api(hsm_endpoint):
     out, err = common.frame_command(
         'hcf_hsm', 'api',  positional_args=[hsm_endpoint])

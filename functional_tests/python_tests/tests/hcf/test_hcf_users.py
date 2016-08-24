@@ -116,4 +116,4 @@ class TestHcfUsers(base.BaseTest):
         hcf_auth.logout(self.cluster_url)
 
 if __name__ == '__main__':
-    base.unittest.main()
+    base.unittest.main(verbosity=2)

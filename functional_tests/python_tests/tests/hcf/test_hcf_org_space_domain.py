@@ -213,4 +213,4 @@ class TestHcfOrgSpaceDomain(base.BaseTest):
         self.verify("does not exist", out)
 
 if __name__ == '__main__':
-    base.unittest.main()
+    base.unittest.main(verbosity=2)

@@ -9,7 +9,6 @@ def create_quota(name, optional_args=dict()):
 
 
 def delete_quota(name, input_data='y\n', optional_args=dict()):
-    print " input data in delete_quota is %s" % input_data
     out, err = common.frame_command(
         'hcf', 'delete-quota', positional_args=[name],
         input_data=input_data, optional_args=optional_args)
@@ -93,7 +92,6 @@ def unset_space_quota(space_name, space_quota_name, optional_args=dict()):
 
 
 def delete_space_quota(name, input_data='y\n', optional_args=dict()):
-    print " input data in delete_space_quota is %s" % input_data
     out, err = common.frame_command(
         'hcf', 'delete-space-quota', positional_args=[name],
         input_data=input_data, optional_args=optional_args)
