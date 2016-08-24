@@ -13,9 +13,9 @@
      * url
      * username
      * password
-2.  cd to python_tests/ folder.  
-    To run all the tests present in tests/hcf folder, execute below command:
-    ./test_hcf_functional.sh
+2.  cd to functional_tests/python_tests
+    To run just one test: python -v tests/hcf/test_hcf_<>.py
+    To run all the tests: ./test_hcf_functional.sh
 
 ## Test HSM
 1. Update hsm.conf in python_tests/config folder with following details:
