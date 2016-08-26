@@ -90,6 +90,7 @@ private static WebElement element = null;
 	
 	 public static void registerCloudFoundry(WebDriver driver, String clusterUrl, String clusterName)
 	    {
+		 cfRegistration(driver).click();
 		 clusterUrl(driver).sendKeys(clusterUrl);
 		 clusterName(driver).sendKeys(clusterName);
 		 registerCluster(driver).click();

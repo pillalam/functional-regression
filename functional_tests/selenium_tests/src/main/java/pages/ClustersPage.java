@@ -73,19 +73,31 @@ public class ClustersPage {
 	     return element;
 
 	     }
-	public static void connectCluster(WebDriver driver, String clusterName, String clusterUser, String clusterPWD)
+	public static void connectCluster(WebDriver driver, String clusterName, String clusterUser, String clusterPWD) throws InterruptedException
     {
 		clusterActionsMenu(driver, clusterName).click();
+		//Unable to find the locators.It is intermittent. temporarily fixing the issue by thread.sleep
+		Thread.sleep(2000);
 		connect(driver, clusterName).click();
 		userName(driver).sendKeys(clusterName);
 		password(driver).sendKeys(clusterPWD);
+		Thread.sleep(2000);
 		connectConfirm(driver).click();
     }
 	
-	public static void disConnectCluster(WebDriver driver, String clusterName)
+	public static void disConnectCluster(WebDriver driver, String clusterName) throws InterruptedException
     {
 		clusterActionsMenu(driver, clusterName).click();
+		Thread.sleep(2000);
 		disConnect(driver, clusterName).click();
+    }
+
+	public static void unregisterCluster(WebDriver driver, String clusterName) throws InterruptedException
+    {
+		clusterActionsMenu(driver, clusterName).click();
+		Thread.sleep(2000);
+		unRegister(driver, clusterName).click();
+		confirmUnregister(driver).click();
     }
 
 }
