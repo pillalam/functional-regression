@@ -19,21 +19,21 @@ def show_instance(catalog_host, instance_id, headers):
     return common.send_request(req_url, method='GET', headers=headers)
 
 
-def create_instance(catalog_host, instance_id, service_id,
-                    labels, version, description, headers, **kwargs):
-    parameters = []
+def create_instance(catalog_host, instance_id, service_id, labels,
+                    product_version, sdl_version, description,
+                    headers, **kwargs):
     data = {}
     request_data = {
-                      "instance_id": instance_id,
-                      "description": description,
-                      "service_id": service_id,
-                      "version": version,
-                      "labels": labels
+                       "instance_id": instance_id,
+                       "description": description,
+                       "service_id": service_id,
+                       "product_version": product_version,
+                       "sdl_version": sdl_version,
+                       "labels": labels
                    }
     if kwargs.get('parameters'):
         data = kwargs.get('parameters')
-        parameters.append(data)
-        request_data['parameters'] = parameters
+        request_data['parameters'] = data
     body = json.dumps(request_data)
     headers = {'Content-Type': 'application/json', 'Authorization': headers}
     url = "v1/instances"
@@ -50,16 +50,17 @@ def delete_instance(catalog_host, instance_id, headers):
     headers = {'Authorization': headers}
     return common.send_request(req_url, method='DELETE', headers=headers)
 
-def configure_instance(catalog_host, instance_id, service_id, version,
+def configure_instance(catalog_host, instance_id, service_id,
+                       description, product_version, sdl_version,
                        vendor, headers, **kwargs):
-    data = {}
     parameters = []
     if kwargs.get('parameters'):
-        data = kwargs.get('parameters')
-        parameters.append(data)
+        parameters = kwargs.get('parameters')
     post_body = {
                     "service_id": service_id,
-                    "version": version,
+                    "description": description,
+                    "product_version": product_version,
+                    "sdl_version": sdl_version,
                     "vendor": vendor,
                     "parameters": parameters
                 }
