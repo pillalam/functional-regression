@@ -1,7 +1,7 @@
 # Helion Stackato 4.0 Functional Tests - Steps to Run the Tests 
 
 ## Preparation
-1. sudo apt-get install python-pip
+1. sudo apt-get install git python-pip
 2. sudo pip install httplib2
 3. Install CLIs - HCP, HSM, CF , and HCE
 4. Add location of CLI to PATH
