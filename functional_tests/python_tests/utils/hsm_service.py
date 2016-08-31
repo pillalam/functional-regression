@@ -34,15 +34,17 @@ def show_service(catalog_host, service_id, headers):
 
 
 def list_service_versions(catalog_host, service_id, headers):
-    url = "v1/services" + "/" + service_id + "/" + "versions"
+    url = "v1/services" + "/" + service_id + "/" + "product_versions"
     catalog_host = "http://" + catalog_host
     req_url = '%s/%s' % (catalog_host, url)
     headers = {'Authorization': headers}
     return common.send_request(req_url, method='GET', headers=headers)
 
 
-def show_service_version(catalog_host, service_id, version, headers):
-    url = "v1/services" + "/" + service_id + "/" + "versions" + "/" + version
+def show_service_version(catalog_host, service_id, prod_version,
+                         sdl_version, headers):
+    url = "v1/services" + "/" + service_id + "/" + "product_versions" + "/" \
+        + prod_version + "/" + "sdl_versions" + "/" + sdl_version
     catalog_host = "http://" + catalog_host
     req_url = '%s/%s' % (catalog_host, url)
     headers = {'Authorization': headers}

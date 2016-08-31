@@ -19,7 +19,7 @@ class TestHSMInstance(base.BaseTest):
         super(TestHSMInstance, cls).setUpClass()
         # Login to hsm api
         hsm_auth.connect_target(cls.cluster_url)
-
+        cls.update_hsm_config()
         # Target to the HSM service endpoint
         hsm_auth.login(optional_args={'-u': cls.username, '-p': cls.password})
 
@@ -49,18 +49,17 @@ class TestHSMInstance(base.BaseTest):
             kwargs = {}
             if 'kwargs' in instance_details:
                 params = ast.literal_eval(instance_details['kwargs'])
-                if type(params) == list:
-                    kwargs['parameters'] = params[0]
-                else:
-                    kwargs['parameters'] = params
-
+                kwargs['parameters'] = params
+            else:
+                kwargs['parameters'] = {}
             # Create HSM Instance
             response, instance = hsm_instance.create_instance(
                 self.catalog_host, instance_details['instance_id'],
                 instance_details['service_id'],
                 ast.literal_eval(instance_details['labels']),
-                instance_details['version'], instance_details['description'],
-                headers=headers, **kwargs)
+                instance_details['product_version'],
+                instance_details['sdl_version'],
+                instance_details['description'], headers=headers, **kwargs)
             self.addCleanup(self._delete_instance,
                             instance_details['instance_id'])
             self.assertEqual(response['status'], '201')
@@ -85,17 +84,16 @@ class TestHSMInstance(base.BaseTest):
         kwargs = {}
         if 'kwargs' in instance_details:
             params = ast.literal_eval(instance_details['kwargs'])
-            if type(params) == list:
-                kwargs['parameters'] = params[0]
-            else:
-                kwargs['parameters'] = params
-        instance_id = instance_details['instance_id'] + 'update'
+            kwargs['parameters'] = params
+        else:
+            kwargs['parameters'] = {}
+        instance_id = instance_details['instance_id'] + '-update'
         # Create HSM Instance
         response, instance = hsm_instance.create_instance(
-            self.catalog_host, instance_id,
-            instance_details['service_id'],
+            self.catalog_host, instance_id, instance_details['service_id'],
             ast.literal_eval(instance_details['labels']),
-            instance_details['version'], instance_details['description'],
+            instance_details['product_version'],
+            instance_details['sdl_version'], instance_details['description'],
             headers=headers, **kwargs)
         self.addCleanup(self._delete_instance, instance_id)
         self.assertEqual(response['status'], '201')
@@ -108,14 +106,15 @@ class TestHSMInstance(base.BaseTest):
 
         # Update Dev-mysql Instance
         kwargs = {}
-        parameters = [{"name": "MYSQL_ROOT_PASSWORD", "value": "pass1"}]
-        kwargs['parameters'] = parameters[0]
-
+        parameters = [{"name": "SERVICE_MYSQL_USER", "value": "demo"}]
+        kwargs['parameters'] = parameters
+        vendor = 'HPE'
         response, _ = hsm_instance.configure_instance(
             self.catalog_host, get_inst['instance']['instance_id'],
             get_inst['instance']['service_id'],
-            get_inst['instance']['version'],
-            get_inst['instance']['vendor'],
+            get_inst['instance']['description'],
+            get_inst['instance']['product_version'],
+            get_inst['instance']['sdl_version'], vendor=vendor,
             headers=headers, **kwargs)
         self.assertEqual(response['status'], '202')
         self.wait_for_active_state(instance_id)

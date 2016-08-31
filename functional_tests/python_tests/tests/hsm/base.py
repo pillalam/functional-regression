@@ -1,3 +1,4 @@
+import ast
 import unittest
 import os
 import re
@@ -64,12 +65,15 @@ class BaseTest(unittest.TestCase):
             cls.CONF_SECTION_CONN2, 'service_id')
         cls.service_name = cls.Config.get(
             cls.CONF_SECTION_CONN2, 'service_name')
-        cls.version = cls.Config.get(
-            cls.CONF_SECTION_CONN2, 'version')
+        cls.product_version = cls.Config.get(
+            cls.CONF_SECTION_CONN2, 'product_version')
+        sdl_versions = cls.Config.get(
+            cls.CONF_SECTION_CONN2, 'sdl_version')
+        cls.sdl_versions = ast.literal_eval(sdl_versions)
 
         # Login to hsm api
         hsm_auth.connect_target(cls.cluster_url)
-
+        cls.update_hsm_config()
         # Target to the HSM service endpoint
         hsm_auth.login(optional_args={'-u': cls.username, '-p': cls.password})
         # Get services
@@ -148,3 +152,14 @@ class BaseTest(unittest.TestCase):
                     'Failed to get deleted %s in required time %s '
                     'seconds' % (instance_id, timeout))
         return instance_id
+
+    @classmethod
+    def update_hsm_config(cls):
+        f = open(cls.token_file, 'r')
+        filedata = f.read()
+        f.close()
+        newdata = filedata.replace("false","true")
+        f = open(cls.token_file, 'w')
+        f.write(newdata)
+        f.close()
+

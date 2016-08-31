@@ -15,7 +15,7 @@ class TestHSMService(base.BaseTest):
         super(TestHSMService, cls).setUpClass()
         # Login to hsm api
         hsm_auth.connect_target(cls.cluster_url)
-
+        cls.update_hsm_config()
         # Target to the HSM service endpoint
         hsm_auth.login(optional_args={'-u': cls.username, '-p': cls.password})
 
@@ -57,7 +57,7 @@ class TestHSMService(base.BaseTest):
             services_list.append(service['name'])
         expected_services = ['dev-mysql', 'dev-mongo', 'dev-redis',
                              'dev-rabbitmq', 'dev-postgres', 'havenondemand',
-                             'k8-guestbook', 'hce', 'hcf', 'helion-console',
+                             'k8-guestbook', 'hce', 'hcf', 'hsc', 'hsm',
                              'rds-mysql', 'rds-postgres']
         missing_services = set(expected_services) - set(services_list)
         self.assertFalse(missing_services,
@@ -68,21 +68,19 @@ class TestHSMService(base.BaseTest):
         response, versions = hsm_service.list_service_versions(
             self.catalog_host, self.service_id, headers=headers)
         self.assertEqual("200", response['status'])
-        versions_list = []
-        for ver in versions:
-            versions_list.append(ver['version'])
-        expected_versions = []
-        expected_versions.append(self.version)
-        missing_versions = set(expected_versions) - set(versions_list)
+        sdl_versions = versions[0]['sdl_versions'].keys()
+        product_version = versions[0]['product_version']
+        missing_versions = []
+        missing_versions = set(self.sdl_versions) - set(sdl_versions)
         self.assertFalse(missing_versions,
                          "Failed to find version in the fetched list %s:"
                          % ', '.join(s for s in missing_versions))
 
         # Show details of a hsm service with version
         response, content = hsm_service.show_service_version(
-            self.catalog_host, self.service_id, self.version,
-            headers=headers)
-        self.assertEqual(self.service_id, content['serviceId'])
+            self.catalog_host, self.service_id, self.product_version,
+            self.sdl_versions[0], headers=headers)
+        self.assertEqual(self.service_id, content['service_id'])
         self.assertEqual("200", response['status'])
 
 
