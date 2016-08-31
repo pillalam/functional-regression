@@ -93,14 +93,18 @@ public class GalleryviewPage {
 	     
 	     
 	     
-	     public static void addApplication(WebDriver driver, String appName)
+	     public static void addApplication(WebDriver driver, String appName) throws InterruptedException
 	     {
-	    	addApp(driver).click();
+	    		addApp(driver).click();
+	    		//Unable to find the locators.It is intermittent. temporarily fixing the issue by thread.sleep
+	    		Thread.sleep(2000);
  			appName(driver).sendKeys(appName);
  			hostName(driver).sendKeys(appName);
  			continueButton(driver).click();
+ 			Thread.sleep(2000);
  			continueButton(driver).click();
- 			deliveryMethod(driver).click();
+ 			//deliveryMethod(driver).click();
+ 			Thread.sleep(2000);
  			continueButton(driver).click();
  	     }
 	     

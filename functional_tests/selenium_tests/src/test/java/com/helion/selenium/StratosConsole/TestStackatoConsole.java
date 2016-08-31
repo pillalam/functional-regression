@@ -54,6 +54,7 @@ public class TestStackatoConsole {
 	        clusterName = "Cluster"+random.nextInt(1000);
 	        hceName = "endPoint"+random.nextInt(1000);
 	        appName = "testApp"+random.nextInt(1000);
+		driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	       
 	    }
@@ -66,7 +67,7 @@ public class TestStackatoConsole {
 	    
 	    @Parameters({ "nonadminuser", "nonadminpwd"})
 	    @Test(priority=1)
-	    public void test_auth_nonadmin_user(String username, String password){
+	    public void test_auth_nonadmin_user(String username, String password) throws InterruptedException{
 	    try{
 	    		driver.get(consolUrl);
 	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
@@ -75,6 +76,8 @@ public class TestStackatoConsole {
 	    			LoginPage.loginToConsole(driver, username, password);
 	    			if(GalleryviewPage.userSettings(driver).isDisplayed())
 	    			{
+	    				//Unable to find the locators.It is intermittent. temporarily fixing the issue by thread.sleep
+	    				Thread.sleep(2000);
 	    				GalleryviewPage.signoutConsole(driver);
 	    			}
 	    		}
@@ -89,7 +92,7 @@ public class TestStackatoConsole {
 	    
 	    @Parameters({ "adminuser", "adminpwd"})
 	    @Test(priority=2)
-	    public void test_auth_admin_user(String username, String password){
+	    public void test_auth_admin_user(String username, String password) throws InterruptedException{
 	    try{
 	    		driver.get(consolUrl);
 	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
@@ -97,6 +100,8 @@ public class TestStackatoConsole {
 	    		if(LoginPage.login(driver).isDisplayed()){
 	    			LoginPage.loginToConsole(driver, username, password);
 	    			if(GalleryviewPage.userSettings(driver).isDisplayed()){
+	    				//Unable to find the locators.It is intermittent. temporarily fixing the issue by thread.sleep
+	    				Thread.sleep(2000);
 	    				GalleryviewPage.signoutConsole(driver);
 	    			}
 	    		}
@@ -110,7 +115,7 @@ public class TestStackatoConsole {
 	    
 	    @Parameters({ "adminuser", "adminpwd", "clusterurl", "clusteruser", "clusterpwd"})
 	    @Test(priority=3)
-	    public void test_cluster_register(String username, String password, String clusterurl, String clusteruser, String clusterpwd ){
+	    public void test_cluster_register(String username, String password, String clusterurl, String clusteruser, String clusterpwd ) throws InterruptedException{
 	    try{
 	    		driver.get(consolUrl);
 	    		Assert.assertEquals("Helion Stackato",driver.getTitle());
@@ -122,23 +127,40 @@ public class TestStackatoConsole {
 	    			System.out.println("Login button is not displayed");
 	    		}
 	    		//register cluster
-	    		GalleryviewPage.endPoints(driver).click();
-	    		driver.navigate().refresh();
+	    		GalleryviewPage.endPoints(driver).click();	    		
 	    		if(EndpointsPage.cfRegistration(driver).isDisplayed()){
 	    			EndpointsPage.registerCloudFoundry(driver, clusterurl, clusterName);
+	    			System.out.println("Cluster register successfull");
+	    			//Unable to find the locators.It is intermittent. temporarily fixing the issue by thread.sleep
+	    			Thread.sleep(2000);
+		    		EndpointsPage.cfClusterChart(driver).click();
+		    		Thread.sleep(2000);
+		    		if(ClustersPage.clusterActionsMenu(driver, clusterName).isDisplayed())
+		    		{
+		    			ClustersPage.connectCluster(driver, clusterName, clusteruser, clusterpwd);
+		    			System.out.println("Cluster connect successfull");
+		    		}
+		    		Thread.sleep(2000);
+		    		//disconnect cluster
+		    		if(ClustersPage.clusterActionsMenu(driver, clusterName).isDisplayed())
+		    		{
+		    			ClustersPage.disConnectCluster(driver, clusterName);
+		    			System.out.println("Cluster disconnect successfull");
+		    		}
+		    		Thread.sleep(2000);
+		    		//Unregister Cluster
+		    		if(ClustersPage.clusterActionsMenu(driver, clusterName).isDisplayed())
+		    		{
+		    			ClustersPage.unregisterCluster(driver, clusterName);
+		    			System.out.println("Cluster unregister successfull");
+		    		}
+	    			
 	    		}
-	    		//connect cluster
-	    		EndpointsPage.cfClusterChart(driver).click();
-	    		if(ClustersPage.clusterActionsMenu(driver, clusterName).isDisplayed())
-	    		{
-	    			ClustersPage.connectCluster(driver, clusterName, clusteruser, clusterpwd);
-	    		}
-	    		//disconnect cluster
-	    		if(ClustersPage.clusterActionsMenu(driver, clusterName).isDisplayed())
-	    		{
-	    			ClustersPage.disConnectCluster(driver, clusterName);
+	    		else{
+	    			System.out.println("Cluster registration is unsuccessfull");
 	    		}
 	    		//Logout
+	    		Thread.sleep(2000);
 	    		if(GalleryviewPage.userSettings(driver).isDisplayed())
     			{
     				GalleryviewPage.signoutConsole(driver);
@@ -147,7 +169,7 @@ public class TestStackatoConsole {
 	    	}catch(NoSuchElementException ex){
 	    				System.out.println(ex.getMessage());
 	    			}
-	    	}  
+	    	} 
 	    
 	    
 	    @Parameters({ "adminuser", "adminpwd", "hceurl", "hceuser", "hcepwd"})
@@ -205,6 +227,8 @@ public class TestStackatoConsole {
 	    		else{
 	    			System.out.println("Login button is not displayed");
 	    		}
+	    		//Unable to find the locators.It is intermittent. temporarily fixing the issue by thread.sleep
+	    		Thread.sleep(2000);
 	    		//Add Application
 	    		if(GalleryviewPage.addApp(driver).isDisplayed())
 	    		{
@@ -213,10 +237,12 @@ public class TestStackatoConsole {
 	    		else{
 	    			System.out.println("Add Application button is not displayed");
 	    		}
+			Thread.sleep(2000);
 	    		//Delete Application
 	    		if(GalleryviewPage.appNameCheck(driver, appName).isDisplayed()){
 	    		SummaryPage.deleteApplication(driver, appName);
 	    		}
+			Thread.sleep(2000);
 	    		//Logout
 	    		if(GalleryviewPage.userSettings(driver).isDisplayed())
     			{
@@ -227,4 +253,4 @@ public class TestStackatoConsole {
 	    		
 	    }
 	    }   
-		}
+	}
