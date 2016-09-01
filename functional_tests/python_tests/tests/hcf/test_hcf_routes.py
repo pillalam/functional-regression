@@ -48,9 +48,17 @@ class TestHcfRoutes(base.BaseTest):
         link = parsed.path.split('/')
         cls.app_dir = link[len(link)-1]
 
+        # Create Domain
+        cls.domain_name = 'domain' + str(random.randint(1024, 4096)) + '.com'
+        out, err = hcf_domain.create_domain(cls.org_name, cls.domain_name)
+
     @classmethod
     def tearDownClass(cls):
         super(TestHcfRoutes, cls).tearDownClass()
+        # Delete Domain
+        hcf_auth.target(optional_args={'-o': cls.org_name})
+        out, err = hcf_domain.delete_domain(cls.domain_name,
+                                            input_data=b'yes\n')
 
         # Delete org
         out, err = hcf_organisations.delete_org(
@@ -62,7 +70,7 @@ class TestHcfRoutes(base.BaseTest):
             common.executeShellCommand(
                 'rm -rf ' + str(cls.app_dir))
 
-    def test_hcf_routes_(self):
+    def test_hcf_routes(self):
         # Target space
         out, err = hcf_auth.target(optional_args={'-s': self.space_name})
 
@@ -104,10 +112,88 @@ class TestHcfRoutes(base.BaseTest):
         self.verify("Removing route " + domain_name + " from app", out)
         self.verify("OK", out)
 
+        # map route to non-existing domain
+        domainname = "nodoamin"
+        out, err = hcf_routes.map_route(self.app_dir, domainname)
+        self.verify("FAILED", out)
+
+        # unmap route to non-existing domain
+        domainname = "nodoamin"
+        out, err = hcf_routes.unmap_route(self.app_dir, domainname)
+        self.verify("FAILED", out)
+
         # Delete routes
         out, err = hcf_routes.delete_orphaned_routes(input_data=b'yes\n')
         self.verify("Deleting route", out)
         self.verify("OK", out)
 
+    def test_hcf_create_duplicate_route(self):
+        # Target space and create Route
+        out, err = hcf_auth.target(optional_args={'-o': self.org_name,
+                                                  '-s': self.space_name})
+        out, err = hcf_routes.create_route(self.space_name, self.domain_name)
+
+        # Create Duplicate Route
+        out, err = hcf_auth.target(optional_args={'-o': self.org_name,
+                                                  '-s': self.space_name})
+        out, err = hcf_routes.create_route(self.space_name, self.domain_name)
+        self.verify("already exists", out)
+
+        # Delete Route
+        hcf_auth.target(optional_args={'-o': self.org_name})
+        out, err = hcf_routes.delete_route(self.domain_name,
+                                           input_data=b'yes\n')
+        self.verify("OK", out)
+
+    def test_hcf_create_route_without_space(self):
+        # Create Route with non-existing space
+        spacename = "nospace"
+        out, err = hcf_routes.create_route(spacename, self.domain_name)
+        self.verify("FAILED", out)
+
+    def test_hcf_create_route_without_domain(self):
+        # Create Route with non-existing domain
+        domainname = "nodomain"
+        out, err = hcf_routes.create_route(self.space_name, domainname)
+        self.verify("FAILED", out)
+
+    def test_hcf_create_route_invalid_host(self):
+        # Create Route with invalid host
+        hostname = "invali_host@@@"
+        out, err = hcf_routes.create_route(self.space_name, self.domain_name,
+                                           optional_args={'-n': hostname})
+        self.verify("FAILED", out)
+
+    def test_hcf_create_route_invalid_path(self):
+        # Create Route with invalid path
+        path = "nopath"
+        out, err = hcf_routes.create_route(self.space_name, self.domain_name,
+                                           optional_args={'-p': path})
+        self.verify("FAILED", out)
+
+    def test_hcf_check_route_without_path(self):
+        # Check Route with non-existing host
+        hostname = "nohost"
+        out, err = hcf_routes.check_route(hostname, self.domain_name)
+        self.verify("does not exist", out)
+
+    def test_hcf_map_route_without_app(self):
+        # Map Route with non-existing app
+        appname = "noapp"
+        out, err = hcf_routes.map_route(appname, self.domain_name)
+        self.verify("FAILED", out)
+
+    def test_hcf_unmap_route_without_app(self):
+        appname = "noapp"
+        # Unmap Route with non-existing domain
+        out, err = hcf_routes.unmap_route(appname, self.domain_name)
+        self.verify("FAILED", out)
+
+    def test_hcf_delete_route_without_domain(self):
+        # Delete Route with non-existing domain
+        domainname = "nodomain"
+        out, err = hcf_routes.delete_route(domainname, input_data=b'yes\n')
+        self.verify("FAILED", out)
+
 if __name__ == '__main__':
-    base.unittest.main(verbosity=2)
+    base.unittest.main()

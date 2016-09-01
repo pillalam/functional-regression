@@ -33,3 +33,17 @@ def delete_orphaned_routes(input_data='y\n', optional_args=dict()):
         'hcf', 'delete-orphaned-routes', input_data=input_data,
         optional_args=optional_args)
     return out, err
+
+
+def check_route(host, domain, optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'check-route', positional_args=[host, domain],
+        optional_args=optional_args)
+    return out, err
+
+
+def delete_route(domain, input_data='y\n', optional_args=dict()):
+    out, err = common.frame_command(
+        'hcf', 'delete-route', positional_args=[domain],
+        input_data=input_data, optional_args=optional_args)
+    return out, err
