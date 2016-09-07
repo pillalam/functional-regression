@@ -29,4 +29,24 @@
      * url 
      * username
      * password 
-      
+
+
+## Test HCF User Acceptance (Upstream) Tests on AWS
+* Set the following variables:
+```
+     $ HCF_DOMAIN=mydomain.com
+     $ HCF_USER=admin
+     $ HCF_PASSWORD=mypass
+     $ HCF_SDL_VERSION=hcf-0.16.11_0.g60bd33d.master
+```
+
+* Run the docker:
+```
+     $ docker run -it  \
+       -- name hcf-cats \
+       -- rm \
+       -- env DOMAIN=${HCF_DOMAIN} \
+       -- env CLUSTER_ADMIN_PASSWORD=${HCF_PASSWORD} \
+       -- env CLUSTER_ADMIN_USERNAME=${HCF_USER} \
+       docker-registry.helion.space/helioncf/hcf-acceptance-tests:${HCF_SDL_VERSION}
+```
