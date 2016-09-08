@@ -5,7 +5,8 @@
 2. sudo pip install httplib2
 3. Install CLIs - HCP, HSM, CF , and HCE
 4. Add location of CLI to PATH - export PATH=$PATH:{CLI_LOCATION}
-5. export PYTHONPATH=~/cnap-qa/functional_tests/python_tests/ 
+5. Clone repo: git clone git@github.com:hpcloud/cnap-qa.git 
+6. export PYTHONPATH=~/cnap-qa/functional_tests/python_tests/ 
 
 
 ## Test HCF
