@@ -29,4 +29,16 @@
      * url 
      * username
      * password 
-      
+
+
+## Test HCE - Smoke Tests
+1. Install jq(1.5+) using sudo apt-get install jq
+2. Install smoke test using HCE-CLI with the command - sudo ./hce install-smoke-test
+3. Execute the smoke test by running the command:
+   /usr/local/bin/smoke-hce  <HCE_PUBLIC_API_URL> <HCE_USERNAME> <HCE_PASSWORD> <GITHUB_USERNAME> <GITHUB_PASSWORD> <LOGDIR>
+   * HCE_PUBLIC_API_URL - hce endpoint url
+   * HCE_USERNAME       - hce username
+   * HCE_PASSWORD       - hce password
+   * GITHUB_USERNAME    - github repo username
+   * GITHUB_PASSWORD    - github repo password
+   * LOGDIR             - path for the log directory
